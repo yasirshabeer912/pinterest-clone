@@ -4,7 +4,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 
 const Header = () => {
-    const [token, setToken] = useState(true);
+    const [token, setToken] = useState(false);
     return (
         <div>
             {token ? (
@@ -28,7 +28,7 @@ const Header = () => {
                             </svg>
                             <div className="logo-name">Pinterest</div>
                         </div>
-                        <div className="nav__link">Watch</div>
+                        <div className="nav__link ">Watch</div>
                         <div className="nav__link">Explore</div>
                     </div>
                     <div className="right d-flex gap-4 align-items-center">
