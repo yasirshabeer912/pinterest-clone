@@ -6,35 +6,26 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [success, setSuccess] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const apiUrl = "http://localhost:8000/api/users/";
-            const { data } = await axios.post(apiUrl, {
-                email,
-                password,
-                confirmPassword,
-            });
+            const apiUrl = 'http://localhost:8000/api/users/';
+            const { data } = await axios.post(apiUrl, { email, password, confirmPassword });
             console.log(data);
-            setSuccess(true)
         } catch (error) {
             console.error(error.response.data.message);
         }
     };
-    const closeModal = () => {
-        setSuccess(false);
-      };
 
     return (
         <>
             <div
-                className={`modal fade py-5 ${success ? "show" : ""}`}
+                className="modal fade py-5"
                 id="SignUpModel"
                 tabIndex={"-1"}
                 aria-labelledby="exampleModalLabel"
-                aria-hidden={!success}
+                aria-hidden="true"
             >
                 <div className="modal-dialog  modal-dialog-centered">
                     <div className="modal-content">
@@ -44,7 +35,6 @@ const Signup = () => {
                                 className="btn-close"
                                 data-bs-dismiss="modal"
                                 aria-label="Close"
-                                onClick={closeModal}
                             ></button>
                         </div>
                         <form onSubmit={handleSubmit}>
@@ -93,9 +83,7 @@ const Signup = () => {
                                             placeholder="Confirm Password"
                                         />
                                     </div>
-                                    <button type="submit" className="btn authBtn">
-                                        LOGIN
-                                    </button>
+                                    <button type="submit" className="btn authBtn">LOGIN</button>
                                     <div className="or text-center my-2">OR</div>
                                     <div className="btn authBtn google">Continue With Google</div>
                                 </div>

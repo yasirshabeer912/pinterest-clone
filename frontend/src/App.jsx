@@ -10,8 +10,8 @@ import CreatePost from "./pages/CreatePost";
 const App = () => {
   return (
     <>
-      <Header />
       <Router>
+      <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/posts" element={<Posts />} />
