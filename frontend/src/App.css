@@ -348,3 +348,16 @@ color: #5F5F5F;
   text-align: center;
   transition: all ease .3s;
 }
+.CreateFile{
+  height: 400px !important;
+  border: 1px dotted #cc0623;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+}
+.CreateFile svg{
+  font-size: 5rem;
+  color: #C31952;
+}

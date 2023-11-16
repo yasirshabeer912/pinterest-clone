@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import "./App.css";
 import Posts from "./pages/Posts";
 import SinglePost from "./pages/SinglePost";
+import CreatePost from "./pages/CreatePost";
 const App = () => {
   return (
     <>
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/posts" element={<Posts />} />
           <Route path="/posts/postname" element={<SinglePost />} />
+          <Route path="/create" element={<CreatePost />} />
         </Routes>
       </Router>
     </>
