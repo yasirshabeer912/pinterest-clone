@@ -4,7 +4,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 
 const Header = () => {
-    const [token, setToken] = useState(false);
+    const [token, setToken] = useState(true);
     return (
         <div>
             {token ? (
