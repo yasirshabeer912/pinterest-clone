@@ -21,7 +21,12 @@
   border-radius: 30px;
   color: white;
 }
-
+.show{
+  display: block !important;
+}
+.hide{
+  display: none !important;
+}
 .banner{
   width: 100vw;
   height: 95vh;
