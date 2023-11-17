@@ -4,35 +4,28 @@ const Post = require('../models/Post');
 const createPost = asyncHandler(async (req, res) => {
   const { title, description } = req.body;
 
-  try {
-    // Check if the image file exists in the request
-    if (!req.file) {
-      return res.status(400).json({ message: 'Image file is required' });
-    }
+  // Assuming you have an 'image' field in your Post model
+  const image = req.file ? req.file.filename : null;
 
-    // Access the image data from memory
-    const image = req.file.buffer;
+  // Create a new post using the Post model
+  const newPost = await Post.create({
+    title,
+    description,
+    image
+  })
 
-    // Your image processing logic (e.g., storing in a cloud storage, etc.)
-
-    const postCreate = await Post.create({
-      title,
-      description,
-      image,
-    });
-
-    if (postCreate) {
-      return res.json({
-        message: 'Post created successfully',
-        data: postCreate,
-      });
-    }
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: 'Internal Server Error' });
-  }
-
-  return res.json({ message: 'Post Controller Create' });
+  res.status(201).json({
+    success: true,
+    message: 'Post created successfully',
+    data: newPost,
+  });
 });
 
-module.exports = { createPost };
+const getPosts = asyncHandler(async (req,res)=>{
+  const Posts = await Post.find()
+  if(Posts){
+    res.json({Posts})
+  }
+})
+
+module.exports = { createPost,getPosts };

@@ -212,6 +212,8 @@ color: #5F5F5F;
 }
 .card-image img{
   width: 100%;
+  min-height: 200px;
+  height: 100% !important;
   border-radius: 15px;
 }
 .postCard .details{
@@ -366,6 +368,7 @@ color: #5F5F5F;
   transition: all ease .3s;
 }
 .CreateFile{
+  width: 100%;
   height: 400px !important;
   border: 1px dotted #cc0623;
   display: flex;
@@ -373,8 +376,42 @@ color: #5F5F5F;
   align-items: center;
   flex-direction: column;
   cursor: pointer;
+  object-fit: cover;
+  position: relative;
 }
+
 .CreateFile svg{
   font-size: 5rem;
   color: #C31952;
+}
+.CreateFile .preview-image{
+  object-fit: contain;
+  width: 100% !important;
+  height: 100% !important;
+}
+.overlayy{
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.514);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  transition: all linear .3s;
+  opacity: 0;
+}
+.changeBtn{
+  border: 1px solid white;
+  padding: 5px 20px;
+  border-radius: 8px;
+  transition: all ease .2s  ;
+}
+.changeBtn:hover{
+  background-color: rgba(255, 255, 255, 0.292);
+  color: yellow;
+}
+
+.CreateFile:hover .overlayy{
+  opacity: 1;
 }

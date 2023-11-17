@@ -3,10 +3,27 @@ import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import Box from "@mui/material/Box";
 import Masonry from "@mui/lab/Masonry";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
-
-Box;
+import { useState,useEffect } from "react";
 const Posts = () => {
+  const [posts, setPosts] = useState([]);
+
+const getPosts = async () => {
+  try {
+    const response = await fetch('http://localhost:8000/api/getPosts');
+    const data = await response.json();
+    setPosts(data.Posts); // Assuming data is an array of posts
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+  }
+};
+
+useEffect(() => {
+  getPosts();
+}, []);
+
+console.log('postdata',posts);
+
+  
   const isLargeScreen = useMediaQuery("(min-width: 800px)");
   const isMediumScreen = useMediaQuery("(min-width: 576px)");
   const getColumnCount = () => {
@@ -22,31 +39,17 @@ const Posts = () => {
   return (
     <>
     <div className="container-fluid  postContainer d-flex flex-wrap">
-      <Box sx={{ width: '100%', minHeight: 600 }}>
+      <Box sx={{ width: '100%', maxHeight: 600 }}>
         <Masonry 
         columns={getColumnCount()}
         spacing={2}>
-          <div className="card postCard">
-            {/* <div className="card-image">
-              <img
-                src="https://i.pinimg.com/236x/a6/d4/f9/a6d4f908ddcaa02c1e15e04ac34dab71.jpg"
-                alt=""
-              />
-            </div> */}
-            <div className="overlay"></div>
-            <div className="savebtn">Save</div>
-            <div className="details ">Awwwwwwwwwwwwwww</div>
-            <div className="postIcons">
-              <TbDownload className="downloadIcon" />
-              <HiOutlineDotsHorizontal />
-            </div>
-          </div>
-          <div className="card postCard">
+          {
+            posts.map((post)=>(
+
+          <div key={post._id} className="card postCard">
             <div className="card-image">
-              <img
-                src="https://i.pinimg.com/236x/89/6c/53/896c53c38d448316ad83cb5fdfee519f.jpg"
-                alt=""
-              />
+            <img src={`http://localhost:8000/${post?.image.replace(/\\/g, '/')}`} alt="" />
+
             </div>
             <div className="overlay"></div>
             <div className="savebtn">Save</div>
@@ -56,21 +59,9 @@ const Posts = () => {
               <HiOutlineDotsHorizontal />
             </div>
           </div>
-          <div className="card postCard">
-            <div className="card-image">
-              <img
-                src="https://i.pinimg.com/236x/24/b9/fd/24b9fd04b6952734677e7d9c6a7147ed.jpg"
-                alt=""
-              />
-            </div>
-            <div className="overlay"></div>
-            <div className="savebtn">Save</div>
-            <div className="details "></div>
-            <div className="postIcons">
-              <TbDownload className="downloadIcon" />
-              <HiOutlineDotsHorizontal />
-            </div>
-          </div>
+            ))
+          }
+          
        
         </Masonry>
       </Box>
