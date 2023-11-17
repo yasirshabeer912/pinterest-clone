@@ -68,4 +68,33 @@ const loginUser = asyncHandler(async (req, res) =>{
 
 })
 
-module.exports = { registerUser,loginUser }
+const getToken = asyncHandler(async (req, res) => {
+    const userId = req.userId;
+    res.json({ userId });
+  })
+
+const getUserDetails = asyncHandler(async (req, res) => {
+    const requestedUserId = req.params.id; 
+
+    try {
+        const user = await User.findById(requestedUserId);
+
+        if (user) {
+            const userDetails = {
+                _id: user._id,
+                email: user.email,
+            };
+
+            res.status(200).json({ userDetails });
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: 'Internal Server Error',
+        });
+    }
+});
+
+module.exports = { registerUser, loginUser, getToken, getUserDetails };

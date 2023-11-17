@@ -1,16 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MainHeader from "./MainHeader";
 import Login from "./Login";
 import Signup from "./Signup";
-
+import { useDispatch, useSelector } from "react-redux";
+import { decodeToken, getUserDetails } from "../store/actions/authActions";
 const Header = () => {
-  const [token, setToken] = useState(true);
   const [show, setShow] = useState(false);
   const [showW, setShowW] = useState(false);
-    console.log(showW,'shwwwwwww');
+  const token = useSelector((state) => state.auth.token);
+  const dispatch = useDispatch();
+  const userId = useSelector((state) => state.auth.user ? state.auth.user.userId : null);
+  useEffect(() => {
+    const fetchData = async () => {
+      // Check if there is a valid token and dispatch decodeToken
+      if (token) {
+        await dispatch(decodeToken(token));
+        // Now that decodeToken has completed, dispatch setUserDetails
+        dispatch(getUserDetails(userId))
+      }
+    };
+  
+    fetchData();
+  }, [token, dispatch, userId]);
+  
+
   return (
     <div>
-      {token ? (
+      {!token ? (
         <div className="container-fluid fixed-top header__">
           <div className=" d-flex justify-content-between align-items-center py-4 px-3 ">
             <div className="left d-flex gap-4 align-items-center">

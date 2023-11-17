@@ -8,11 +8,15 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 Box;
 const Posts = () => {
   const isLargeScreen = useMediaQuery("(min-width: 800px)");
+  const isMediumScreen = useMediaQuery("(min-width: 576px)");
   const getColumnCount = () => {
+  
     if (isLargeScreen) {
       return 6; // 6 columns for large screens
+    } else if (isMediumScreen) {
+      return 3; // 3 columns for medium screens
     } else {
-      return 3; // 3 columns for smaller screens
+      return 2; // 2 columns for smaller screens
     }
   };
   return (

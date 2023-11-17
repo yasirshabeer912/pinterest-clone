@@ -2,23 +2,34 @@ import axios from "axios";
 import { useState } from "react";
 import { FaPinterest } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+  import CircularProgress from '@mui/material/CircularProgress';
+
+// eslint-disable-next-line react/prop-types
 const Signup = ({showW,setShowW}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading,setLoading] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
     try {
       const apiUrl = "http://localhost:8000/api/users/";
+      // eslint-disable-next-line no-unused-vars
       const { data } = await axios.post(apiUrl, {
         email,
         password,
         confirmPassword,
       });
       setShowW(false)
+      setLoading(false)
     } catch (error) {
       console.error(error.response.data.message);
+      toast.error(error.response.data.message)
+      setLoading(false)
     }
   };
 
@@ -26,12 +37,12 @@ const Signup = ({showW,setShowW}) => {
     <>
       <Modal show={showW} onHide={() => setShowW(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>{''}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={handleSubmit}>
-              <div className="modelAuth px-5">
-                <FaPinterest className="" />
+              <div className="modelAuth px-5 pb-5">
+                <FaPinterest className="pinSVG" />
                 <div className="h my-4">
                   <div className="h1 text-nowrap">Welcome To Pinterest</div>
                   <div className="p text-secondary text-center">
@@ -74,8 +85,9 @@ const Signup = ({showW,setShowW}) => {
                     placeholder="Confirm Password"
                   />
                 </div>
+                
                 <button type="submit" className="btn authBtn">
-                  LOGIN
+                  {loading? <CircularProgress color="success" /> : 'REGISTOR'}
                 </button>
                 <div className="or text-center my-2">OR</div>
                 <div className="btn authBtn google">Continue With Google</div>
@@ -83,6 +95,18 @@ const Signup = ({showW,setShowW}) => {
           </form>
         </Modal.Body>
       </Modal>
+      <ToastContainer
+      position="top-right"
+      autoClose={1000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+      />
     </>
   );
 };

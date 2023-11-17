@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const authRoutes = require('./routes/authRoutes'); 
+const postRoutes = require('./routes/postRoutes')
 require('dotenv').config();
 const connectDb = require('./config/db')
 connectDb();
@@ -14,6 +15,7 @@ app.get('/',(req,res)=>{
 
 
 app.use('/api/users', authRoutes); 
+app.use('/api/',postRoutes)
 
 const port = 8000;
 app.listen(port, () => {
