@@ -3,14 +3,52 @@ import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import { Dropdown } from "react-bootstrap";
 import { logout } from "../store/actions/authActions";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { allPosts } from "../store/actions/postActions";
 const MainHeader = () => {
     const dispatch = useDispatch();
-    const handleLogout = (e)=>{
+    const [slug, setSlug] = useState('')
+    const [searchTerm, setSearchTerm] = useState('');
+    const user = useSelector((state) => state.auth.userDetails);
+    const navigate = useNavigate()
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            const UserName = user.name
+            const formattedSlug = UserName.toLowerCase().replace(/\s+/g, '-');
+            setSlug(formattedSlug)
+        }, 3000);
+
+        return () => clearTimeout(timeoutId); // Cleanup the timeout on component unmount or when user changes
+    }, [user]);
+    const handleLogout = (e) => {
         e.preventDefault()
         dispatch(logout())
+        navigate('/')
     }
+
+
+
+    const handleSearch = async (e) => { 
+        e.preventDefault();
+    
+        try {
+            const response = await axios.post(`http://localhost:8000/api/search?q=${searchTerm}`, {
+                headers: {
+                    'Accept': 'application/json',
+                },
+            });
+    
+            // console.log(response);
+            const data = response.data;
+            console.log(data);
+            // dispatch(allPosts(data.data))
+        } catch (error) {
+            console.error('Error during search:', error);
+        }
+    };
     return (
         <>
             <div className="container-fluid fixed-top header__">
@@ -33,24 +71,27 @@ const MainHeader = () => {
                             </svg>
 
                         </div>
-                        <div className="nav__link ">Home</div>
-                        <Link to={'/create'} className="nav__link">Create</Link>
+                        <Link to={'/'} className="nav__link fw-bold">Home</Link>
+                        <Link to={'/create'} className="nav__link fw-bold">Create</Link>
                     </div>
-                    <div className="formHeader w-75 d-flex align-items-center">
-                        <input type="text" className="w-100 headerInput" placeholder="Search Here....." />
+                    <form className="w-75" onSubmit={handleSearch}>
 
-                    </div>
+                        <div className="formHeader w-100 d-flex align-items-center">
+                            <input type="text" className="w-100 headerInput" placeholder="Search Here....." onChange={(e)=>setSearchTerm(e.target.value)} />
+
+                        </div>
+                    </form>
                     <div className="rightmain d-flex gap-md-3 gap-1 align-items-center">
                         <IoIosNotifications />
                         <IoChatbubbleEllipsesSharp />
                         <Dropdown>
                             <Dropdown.Toggle className="awwwwww">
-                            <CgProfile />
+                                <CgProfile />
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                                <Dropdown.Item href="#/action-1">My Profile</Dropdown.Item>
-                                <Dropdown.Item  onClick={handleLogout}>Logout</Dropdown.Item>
+                                <Dropdown.Item ><Link to={`/${slug}`}>Profile</Link></Dropdown.Item>
+                                <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
 

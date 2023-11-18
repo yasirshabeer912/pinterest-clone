@@ -5,9 +5,11 @@ import Modal from "react-bootstrap/Modal";
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
   import CircularProgress from '@mui/material/CircularProgress';
+import ContinueWithGoogle from "../firebase/ContinueWithGoogle";
 
 // eslint-disable-next-line react/prop-types
 const Signup = ({showW,setShowW}) => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -20,6 +22,7 @@ const Signup = ({showW,setShowW}) => {
       const apiUrl = "http://localhost:8000/api/users/";
       // eslint-disable-next-line no-unused-vars
       const { data } = await axios.post(apiUrl, {
+        name,
         email,
         password,
         confirmPassword,
@@ -50,6 +53,19 @@ const Signup = ({showW,setShowW}) => {
                   </div>
                 </div>
                 <div className="mb-3 w-100">
+                  <label className="form-label">Name</label>
+                  <input
+                    type="text"
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    value={name}
+                    className="form-control w-100"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="Name"
+                  />
+                </div>
+                <div className="mb-3 w-100">
                   <label className="form-label">Email</label>
                   <input
                     type="email"
@@ -59,6 +75,7 @@ const Signup = ({showW,setShowW}) => {
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
                     placeholder="Email"
+                    value={email}
                   />
                 </div>
                 <div className="mb-3 w-100">
@@ -71,6 +88,7 @@ const Signup = ({showW,setShowW}) => {
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
                     placeholder="Password"
+                    value={password}
                   />
                 </div>
                 <div className="mb-3 w-100">
@@ -83,14 +101,16 @@ const Signup = ({showW,setShowW}) => {
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
                     placeholder="Confirm Password"
+                    value={confirmPassword}
                   />
                 </div>
+                
                 
                 <button type="submit" className="btn authBtn">
                   {loading? <CircularProgress color="success" /> : 'REGISTOR'}
                 </button>
                 <div className="or text-center my-2">OR</div>
-                <div className="btn authBtn google">Continue With Google</div>
+                <ContinueWithGoogle setShow={setShowW}/>
               </div>
           </form>
         </Modal.Body>

@@ -1,8 +1,16 @@
-import React from "react";
 import { TbDownload } from "react-icons/tb";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { CgProfile } from "react-icons/cg";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 const SinglePost = () => {
+  const allPostData = useSelector((state)=>state.posts.posts)
+  console.log('all data',allPostData);
+  const  title  = useParams();
+  console.log(title.id);
+  const post = allPostData.find((e) => e.title === title.id);
+
+  console.log(post);
   return (
     <>
       <div className="SingleContainer border container-fluid">
@@ -11,7 +19,7 @@ const SinglePost = () => {
             <div className="col-md-6 postImage">
               <img
                 className="w-100 h-100 img-fluid"
-                src="https://images.unsplash.com/photo-1682686580036-b5e25932ce9a?q=80&w=1975&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src={`http://localhost:8000/${post?.image.replace(/\\/g, '/')}`}
                 alt=""
               />
             </div>
@@ -34,7 +42,7 @@ const SinglePost = () => {
                       <CgProfile />
                     </div>
                     <div className="ownerName">
-                      <div className="name">Yasir</div>
+                      <div className="name">{post.title}</div>
                       <div className="followers">500 followers</div>
                     </div>
                   </div>

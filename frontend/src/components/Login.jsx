@@ -6,6 +6,8 @@ import Modal from "react-bootstrap/Modal";
 import { loginSuccess } from "../store/actions/authActions";
 import { useDispatch } from "react-redux";
 import CircularProgress from '@mui/material/CircularProgress';
+import ContinueWithGoogle from "../firebase/ContinueWithGoogle";
+
 // eslint-disable-next-line react/prop-types
 const Login = ({ show, setShow }) => {
   const [email, setEmail] = useState("");
@@ -30,6 +32,9 @@ const Login = ({ show, setShow }) => {
       setLoading(false)
     }
   };
+
+
+  
   return (
     <div>
       <Modal show={show} onHide={() => setShow(false)}>
@@ -67,7 +72,7 @@ const Login = ({ show, setShow }) => {
               {loading? <CircularProgress color="success" /> : 'LOGIN'}
               </button>
               <div className="or text-center my-2">OR</div>
-              <div className="btn authBtn google">Continue With Google</div>
+              <ContinueWithGoogle setShow={setShow}/>
             </div>
           </form>
         </Modal.Body>

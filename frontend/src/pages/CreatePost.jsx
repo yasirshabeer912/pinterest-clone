@@ -9,12 +9,14 @@ const CreatePost = () => {
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const navigate = useNavigate()
-  const token = useSelector((state)=>state.auth.token)
-  useEffect(()=>{
-    if(!token){
-      return navigate("/")
+  const email = useSelector((state) => state.auth.userDetails?.email);
+
+  useEffect(() => {
+    if (!email) {
+      navigate("/");
     }
-  },[])
+  }, [email, navigate]);
+  
 
   const openFileInput = () => {
     var fileInput = document.getElementById("fileInput");

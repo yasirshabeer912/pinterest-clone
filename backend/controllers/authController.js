@@ -4,7 +4,7 @@ const bycrypt = require('bcrypt')
 var jwt = require('jsonwebtoken');
 
 const registerUser = asyncHandler(async (req, res) => {
-    const { email, password, confirmPassword } = req.body
+    const { email, password, confirmPassword,name } = req.body
     const checkUser = await User.findOne({ email })
 
     if (checkUser) {
@@ -20,13 +20,16 @@ const registerUser = asyncHandler(async (req, res) => {
             const salt = await bycrypt.genSalt(12)
             const hashedPassword = await bycrypt.hash(password, salt)
             const RegisterUser = await User.create({
+                name,
                 email,
                 password: hashedPassword
+
             })
 
             if (RegisterUser) {
                 res.status(200).json({
                     message: "Registered Successfully",
+                    name,
                     email
                 })
             } else {
@@ -82,10 +85,11 @@ const getUserDetails = asyncHandler(async (req, res) => {
         if (user) {
             const userDetails = {
                 _id: user._id,
+                name:user.name,
                 email: user.email,
             };
 
-            res.status(200).json({ userDetails });
+            res.status(200).json( userDetails );
         } else {
             res.status(404).json({ message: 'User not found' });
         }
