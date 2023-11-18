@@ -415,3 +415,15 @@ color: #5F5F5F;
 .CreateFile:hover .overlayy{
   opacity: 1;
 }
+
+.createBtn{
+  border: 2px solid #cc0623;
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: #cc0623;
+  transition: all ease .3s;
+}
+.createBtn:hover{
+  background-color: #cc0623;
+  color: white;
+}

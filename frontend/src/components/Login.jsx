@@ -21,7 +21,7 @@ const Login = ({ show, setShow }) => {
       const {data} = await axios.post(apiUrl, { email, password });
         console.log(data);
         const token = data.token
-        navigate("/posts");
+        navigate("/");
         dispatch(loginSuccess(token));
         setShow(false);
         setLoading(false)
@@ -38,8 +38,8 @@ const Login = ({ show, setShow }) => {
         </Modal.Header>
         <Modal.Body>
           <form action="" onSubmit={handleSubmit}>
-            <div className="modelAuth p-5">
-              <FaPinterest className="" />
+            <div className="modelAuth px-5 pb-5">
+              <FaPinterest className="pinSVG" />
               <div className="h1 text-nowrap my-4">Welcome To Pinterest</div>
               <div className="mb-3 w-100">
                 <label className="form-label">Email</label>

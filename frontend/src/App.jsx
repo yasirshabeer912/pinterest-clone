@@ -7,14 +7,16 @@ import "./App.css";
 import Posts from "./pages/Posts";
 import SinglePost from "./pages/SinglePost";
 import CreatePost from "./pages/CreatePost";
+import { useSelector } from "react-redux";
 const App = () => {
+  const token = useSelector((state)=>state.auth.token)
   return (
     <>
       <Router>
       <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/posts" element={<Posts />} />
+          <Route path="/" element={token ? <Posts/> : <Home/>} />
+          {/* <Route path="/" element={<Posts />} /> */}
           <Route path="/posts/postname" element={<SinglePost />} />
           <Route path="/create" element={<CreatePost />} />
         </Routes>

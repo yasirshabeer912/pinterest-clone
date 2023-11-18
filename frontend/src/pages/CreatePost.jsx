@@ -1,11 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RiUploadCloudFill } from "react-icons/ri";
-
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast,ToastContainer } from "react-toastify";
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const navigate = useNavigate()
+  const token = useSelector((state)=>state.auth.token)
+  useEffect(()=>{
+    if(!token){
+      return navigate("/")
+    }
+  },[])
 
   const openFileInput = () => {
     var fileInput = document.getElementById("fileInput");
@@ -41,14 +50,29 @@ const CreatePost = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data.message); // Log success message
-        // You may want to reset the form or redirect the user after successful post creation
+        console.log(data.message); 
+        toast.success(data.message)
       } else {
         const errorData = await response.json();
         console.error(errorData.message); // Log error message
+        toast.error(errorData.message)
+
       }
+
+      // Reset form fields and state
+      setTitle("");
+      setDescription("");
+      setImage(null);
+      setImagePreview(null);
+
+      // Clear the file input
+      const fileInput = document.getElementById("fileInput");
+      fileInput.value = null;
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
     } catch (error) {
-      console.error("Error creating post:", error);
+      console.error(error);
     }
   };
 
@@ -94,6 +118,7 @@ const CreatePost = () => {
                     aria-describedby="emailHelp"
                     placeholder="Add a Title"
                     onChange={(e) => setTitle(e.target.value)}
+                    value={title}
                   />
                 </div>
                 <div className="mb-3">
@@ -104,9 +129,10 @@ const CreatePost = () => {
                     placeholder="Add a Detailed Description"
                     rows="3"
                     onChange={(e) => setDescription(e.target.value)}
+                    value={description}
                   ></textarea>
                 </div>
-                <button type="submit" onClick={handleCreatePost}>
+                <button type="submit" className="createBtn" onClick={handleCreatePost}>
                   Create Post
                 </button>
               </form>
@@ -114,6 +140,18 @@ const CreatePost = () => {
           </div>
         </div>
       </div>
+      <ToastContainer
+      position="top-right"
+      autoClose={1000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+      />
     </div>
   );
 };
