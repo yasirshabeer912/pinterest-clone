@@ -15,7 +15,7 @@ app.use(cors())
 app.get('/',(req,res)=>{
     res.send('api is running')
 })
-app.use('/', express.static('backend/uploacds'));
+app.use('/', express.static('backend/uploads'));
 app.use('/api/users', authRoutes); 
 app.use('/api/',postRoutes)
 
