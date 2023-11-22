@@ -29,6 +29,7 @@ export const setUserDetails = (userDetails) => {
 
 
 export const decodeToken = (token) => {
+    console.log('token in the decode token function ',token);
     return async (dispatch) => {
         try {
             const apiUrl = "http://localhost:8000/api/users/decodeToken";

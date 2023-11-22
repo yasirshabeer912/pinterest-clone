@@ -10,7 +10,7 @@ const CreatePost = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const navigate = useNavigate()
   const email = useSelector((state) => state.auth.userDetails?.email);
-
+  const token = useSelector((state) => state.auth.token);
   useEffect(() => {
     if (!email) {
       navigate("/");
@@ -47,6 +47,9 @@ const CreatePost = () => {
 
       const response = await fetch("http://localhost:8000/api/createPost", {
         method: "POST",
+        headers:{
+          Authorization: token
+        },
         body: formData,
       });
 

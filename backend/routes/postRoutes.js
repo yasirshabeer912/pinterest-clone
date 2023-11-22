@@ -4,7 +4,7 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-
+const verifyToken = require('../middleware/verifyToken');
 // Set up multer to store files in the 'uploads' folder within the 'backend' folder
 const uploadFolder = path.join(__dirname, '../uploads/');
 const storage = multer.diskStorage({
@@ -24,9 +24,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post('/createPost', upload.single('image'), createPost);
+router.post('/createPost',verifyToken, upload.single('image'), createPost);
 router.get('/getPosts', getPosts);
-router.get('/getPosts/:id', getPostByUser);
+router.get('/getPosts/:id', verifyToken, getPostByUser); // Corrected order
 router.post('/search', searchPosts);
 
 module.exports = router;

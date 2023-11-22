@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const Post = require('../models/Post');
-
+const User = require('../models/User');
 const createPost = asyncHandler(async (req, res) => {
   const { title, description } = req.body;
 
@@ -8,16 +8,29 @@ const createPost = asyncHandler(async (req, res) => {
   const image = req.file ? req.file.filename : null;
 
   // Create a new post using the Post model
-  const newPost = await Post.create({
+  const owner = req.userId; // Updated line
+  // console.log('owner of this post is ', owner);
+  const newPostData = {
     title,
     description,
-    image
-  })
+    image,
+    owner
+
+  }
+  const post = await Post.create(newPostData);
+  const user = await User.findById(owner);
+  console.log('User in Created Post:', user);
+
+
+  user.posts.push(post._id);
+
+  await user.save();
+  console.log('User saved successfully');
+  
 
   res.status(201).json({
-    success: true,
     message: 'Post created successfully',
-    data: newPost,
+    data: newPostData,
   });
 });
 
@@ -30,27 +43,36 @@ const getPosts = asyncHandler(async (req, res) => {
 
 const getPostByUser = asyncHandler(async (req, res) => {
   // Assuming the user ID is sent in the request parameters
-  const userId = req.params.userId;
+  const userId = req.params.id;
 
-  // Use Mongoose's find method to get posts by user ID
-  const userPosts = await Post.find({ user: userId });
+  try {
+    // Find the user by ID
+    const user = await User.findById(userId);
 
-  if (userPosts.length > 0) {
-    res.json({
-      success: true,
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Find posts associated with the user and populate the owner field
+    // Find posts associated with the user and populate the owner field
+    const posts = await Post.find({ owner: userId })
+      .populate({
+        path: 'owner',
+        select: '_id title description image', // Specify the fields you want to include
+      });
+    res.status(200).json({
       message: 'Posts retrieved successfully',
-      data: userPosts,
+      posts: posts,
     });
-  } else {
-    res.status(404).json({
-      success: false,
-      message: 'No posts found for the specified user ID',
-      data: null,
-    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
-const searchPosts = asyncHandler(async (req, res) =>{
+
+
+const searchPosts = asyncHandler(async (req, res) => {
   const searchTerm = req.query.q;
 
   // Use Mongoose's find method to search for posts
@@ -60,7 +82,7 @@ const searchPosts = asyncHandler(async (req, res) =>{
       { description: { $regex: searchTerm, $options: 'i' } }, // Case-insensitive search in the description
     ],
   });
-    res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Content-Type', 'application/json');
 
   res.json({
     message: 'Search results retrieved successfully',
@@ -70,4 +92,4 @@ const searchPosts = asyncHandler(async (req, res) =>{
 
 
 
-module.exports = { createPost, getPosts,getPostByUser,searchPosts };
+module.exports = { createPost, getPosts, getPostByUser, searchPosts };

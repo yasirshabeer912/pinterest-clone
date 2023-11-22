@@ -9,6 +9,11 @@ const postReducer = (state = initalState, action) =>{
                 ...state,
                 posts:action.payload
             };
+        case 'SEARCH_RESULTS':
+            return {
+                ...state,
+                searchedPosts:action.payload
+            };
         default:
             return state;
     }

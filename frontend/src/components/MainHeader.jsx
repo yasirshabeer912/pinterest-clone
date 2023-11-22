@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { allPosts } from "../store/actions/postActions";
+import { searchResults } from "../store/actions/postActions";
 const MainHeader = () => {
     const dispatch = useDispatch();
     const [slug, setSlug] = useState('')
@@ -44,7 +44,7 @@ const MainHeader = () => {
             // console.log(response);
             const data = response.data;
             console.log(data);
-            // dispatch(allPosts(data.data))
+            dispatch(searchResults(data.data))
         } catch (error) {
             console.error('Error during search:', error);
         }
@@ -104,3 +104,6 @@ const MainHeader = () => {
 }
 
 export default MainHeader
+
+
+
