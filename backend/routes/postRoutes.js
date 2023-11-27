@@ -1,5 +1,5 @@
 const express = require('express');
-const { createPost, getPosts,getPostByUser,searchPosts } = require('../controllers/postController');
+const { createPost, getPosts,getPostByUser,searchPosts,savedPost,getSavedPost } = require('../controllers/postController');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
@@ -26,7 +26,9 @@ const upload = multer({ storage: storage });
 
 router.post('/createPost',verifyToken, upload.single('image'), createPost);
 router.get('/getPosts', getPosts);
-router.get('/getPosts/:id', verifyToken, getPostByUser); // Corrected order
+router.get('/getPostsByUser/:id', verifyToken, getPostByUser); // Corrected order
 router.post('/search', searchPosts);
+router.post('/savePosts/:id', verifyToken, savedPost);
+router.get('/getSavedPosts/:id', verifyToken, getSavedPost);
 
 module.exports = router;

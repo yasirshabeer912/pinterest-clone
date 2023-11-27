@@ -91,5 +91,88 @@ const searchPosts = asyncHandler(async (req, res) => {
 })
 
 
+const savedPost = asyncHandler(async (req, res) => {
+  const postId = req.params.id;
+  const userId = req.userId; // Assuming you have a middleware that sets userId in the request
 
-module.exports = { createPost, getPosts, getPostByUser, searchPosts };
+  try {
+    // Find the user by ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Check if the post with the given postId exists
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    // Check if the post is already saved by the user
+    const isSaved = user.saved.includes(postId);
+
+    if (isSaved) {
+      // Remove the post from the user's saved list
+      user.saved = user.saved.filter(savedPostId => savedPostId.toString() !== postId);
+      await user.save();
+
+      return res.status(200).json({
+        message: 'Post removed from saved list',
+        data: {
+          user: user,
+          post: post,
+        },
+      });
+    } else {
+      // Save the post to the user's saved list
+      user.saved.push(postId);
+      await user.save();
+
+      return res.status(201).json({
+        message: 'Post saved successfully',
+        data: {
+          user: user,
+          post: post,
+        },
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+const getSavedPost = asyncHandler(async (req, res) => {
+  // Assuming the user ID is sent in the request parameters
+  const userId = req.params.id;
+
+  try {
+    // Find the user by ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Find posts that are in the user's saved list and populate the owner field
+    const savedPosts = await Post.find({ _id: { $in: user.saved } })
+      .populate({
+        path: 'owner',
+        select: '_id title description image', // Specify the fields you want to include
+      });
+
+    res.status(200).json({
+      message: 'Saved Posts retrieved successfully',
+      savedPosts,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+
+module.exports = { createPost, getPosts, getPostByUser, searchPosts, savedPost,getSavedPost };
+

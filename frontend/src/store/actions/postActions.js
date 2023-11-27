@@ -4,9 +4,12 @@ export const allPosts = (posts) => {
         payload: posts,
     };
 };
-export const searchResults = (posts) => {
+export const searchResults = (posts, searchTerm) => {
     return {
         type: 'SEARCH_RESULTS',
-        payload: posts,
+        payload: {
+            posts,
+            searchTerm,
+        },
     };
 };

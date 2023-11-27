@@ -2,7 +2,8 @@ import { TbDownload } from "react-icons/tb";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import handleDownload from "../utils/functions";
 const SinglePost = () => {
   const allPostData = useSelector((state)=>state.posts.posts)
   console.log('all data',allPostData);
@@ -10,7 +11,7 @@ const SinglePost = () => {
   console.log(title.id);
   const post = allPostData.find((e) => e.title === title.id);
 
-  console.log(post);
+  // console.log(post);
   return (
     <>
       <div className="SingleContainer border container-fluid">
@@ -27,7 +28,12 @@ const SinglePost = () => {
               <div className="postDetails ">
                 <div className="post__nav  d-flex  align-items-center justify-content-between py-4">
                   <div className="Icons d-flex">
-                    <TbDownload className="downloadIcon" />
+                  <Link to='/' >
+                      <TbDownload
+                        className="downloadIcon"
+                        onClick={() => handleDownload(post)}
+                      />
+                    </Link>
                     <HiOutlineDotsHorizontal />
                   </div>
                   <div className="buttons  d-flex align-items-center gap-4">

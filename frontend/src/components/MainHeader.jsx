@@ -44,7 +44,8 @@ const MainHeader = () => {
             // console.log(response);
             const data = response.data;
             console.log(data);
-            dispatch(searchResults(data.data))
+            dispatch(searchResults(data.data, searchTerm));
+            navigate('/search')
         } catch (error) {
             console.error('Error during search:', error);
         }

@@ -26,11 +26,38 @@ const OtherSections = () => {
         </div>
       </div>
       <div className="container-fluid signup">
-        <div className="content text-light">
+        <div className="container">
+          <div className="row text-light">
 
-            <div className="h1">hi</div>
-          <div className="form">
-            <input type="text" className="form-group" />
+            <div className="col-md-6 ">
+              <div className="content w-100 h-100 d-flex  align-items-center ">
+              <div className="details d-flex flex-column ">
+                <span>Sign Up to </span>
+                <span>Get Your  </span>
+                <span>Ideas </span>
+              </div>
+              </div>
+            </div>
+            <div className="col-md-6">
+
+              <div className="form d-flex flex-column">
+                <input type="text" className="form-group" />
+                <input type="text" className="form-group" />
+                <input type="text" className="form-group" />
+                <input type="text" className="form-group" />
+                <input type="text" className="form-group" />
+                <input type="text" className="form-group" />
+                <input type="text" className="form-group" />
+                <input type="text" className="form-group" />
+                <input type="text" className="form-group" />
+                <input type="text" className="form-group" />
+                <input type="text" className="form-group" />
+                <input type="text" className="form-group" />
+                <input type="text" className="form-group" />
+                <input type="text" className="form-group" />
+                <input type="text" className="form-group" />
+              </div>
+            </div>
           </div>
         </div>
       </div>

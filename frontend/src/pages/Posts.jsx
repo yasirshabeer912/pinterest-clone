@@ -7,9 +7,14 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { allPosts } from "../store/actions/postActions";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import handleDownload from "../utils/functions";
 
 const Posts = () => {
+  // const [saved, setSaved] = useState(false)
+  // const [saving, setSaving] = useState(false)
   const allPostData = useSelector((state) => state.posts.posts);
+  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
 
   const getPosts = async () => {
@@ -35,6 +40,35 @@ const Posts = () => {
     }
     return array;
   };
+
+  const handleSave = (id) => {
+    // alert(id)
+    // setSaving(true)
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: `http://localhost:8000/api/savePosts/${id}`,
+      headers: {
+        'Authorization': token,
+      }
+    };
+
+    axios.request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        // setSaving(false)
+        // setSaved(true)
+        alert(JSON.stringify(response.data.message))
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+  }
+  
+  
+
+
 
   const shuffledPosts = shuffleArray(allPostData);
 
@@ -62,10 +96,15 @@ const Posts = () => {
                     <img src={`http://localhost:8000/${post?.image.replace(/\\/g, '/')}`} alt="" />
                   </div>
                   <div className="overlay"></div>
-                  <div className="savebtn">Save</div>
+                  <Link to='/' className="savebtn"  onClick={() => handleSave(post._id)}>Save</Link>
                   <div className="details"></div>
                   <div className="postIcons">
-                    <TbDownload className="downloadIcon" />
+                    <Link to='/' >
+                      <TbDownload
+                        className="downloadIcon"
+                        onClick={() => handleDownload(post)}
+                      />
+                    </Link>
                     <HiOutlineDotsHorizontal />
                   </div>
                 </Link>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useSelector } from "react-redux";
 import { FaPinterest } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
@@ -15,14 +16,16 @@ const ProfilePage = () => {
   const user = useSelector((state) => state.auth.userDetails);
   const token = useSelector((state) => state.auth.token);
 
-  const [savedPosts, setSavedPosts] = useState([]);
+  const [createdPosts, setCreatedPosts] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [savedPostss, setSavedPosts] = useState([]);
 
   const handleCreated = async () => {
     try {
       const config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: `http://localhost:8000/api/getPosts/${user._id}`, // Updated URL
+        url: `http://localhost:8000/api/getPostsByUser/${user._id}`, // Updated URL
         headers: {
           'Authorization': token,
         },
@@ -30,34 +33,56 @@ const ProfilePage = () => {
 
       const response = await axios.request(config);
       const createdData = response.data.posts;
-      console.log(createdData);
-      setSavedPosts(createdData);
+      // console.log(createdData);
+      setCreatedPosts(createdData);
 
     } catch (error) {
       console.log(error);
     }
   };
+  const handleSaved = async () => {
+    try {
+      const config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `http://localhost:8000/api/getSavedPosts/${user._id}`, // Updated URL
+        headers: {
+          'Authorization': token,
+        },
+      };
+
+      const response = await axios.request(config);
+      const createdData = response.data.savedPosts;
+      console.log('response', createdData);
+      setSavedPosts(createdData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // console.log('saved',savedPostss);
+
 
   useEffect(() => {
     handleCreated();
+    handleSaved()
   }, []); // Empty dependency array ensures that the effect runs only once on mount
-  console.log(savedPosts);
+  console.log(createdPosts);
   const isLargeScreen = useMediaQuery("(min-width: 800px)");
   const isMediumScreen = useMediaQuery("(min-width: 576px)");
   const getColumnCount = () => {
 
     if (isLargeScreen) {
-      return 6; 
+      return 6;
     } else if (isMediumScreen) {
-      return 3;   
+      return 3;
     } else {
-      return 2; 
+      return 2;
     }
   };
   return (
     <>
-    <div className="container-fluid">
-    <div className="userdetails">
+      <div className="container-fluid">
+        <div className="userdetails">
           <div className="avatar">
             <img className="w-100 h-100" src="https://www.svgrepo.com/show/382106/male-avatar-boy-face-man-user-9.svg" alt="" />
           </div>
@@ -78,20 +103,19 @@ const ProfilePage = () => {
           </div>
 
 
-          
-        </div>
-    </div>
-      <div className="container-fluid  postContainer d-flex flex-wrap">
 
+        </div>
+      </div>
+      <div className="container-fluid  postContainer d-flex flex-wrap">
         <Box sx={{ width: '100%', maxHeight: 600 }}>
           <Masonry
             columns={getColumnCount()}
             spacing={2}>
             {
-              savedPosts.map((post) => (
+              createdPosts.map((post) => (
 
                 <div key={post._id} className="card postCard">
-                    <Link  to={`/pin/${post.title}`}>
+                  <Link to={`/pin/${post.title}`}>
                     <div className="card-image">
                       <img src={`http://localhost:8000/${post?.image.replace(/\\/g, '/')}`} alt="" />
 
@@ -103,8 +127,8 @@ const ProfilePage = () => {
                       <TbDownload className="downloadIcon" />
                       <HiOutlineDotsHorizontal />
                     </div>
-                </Link>
-                  </div>
+                  </Link>
+                </div>
               ))
             }
 
@@ -113,6 +137,36 @@ const ProfilePage = () => {
         </Box>
       </div>
 
+      <div className="container-fluid  postContainer d-flex flex-wrap">
+        <Box sx={{ width: '100%', maxHeight: 600 }}>
+          <Masonry
+            columns={getColumnCount()}
+            spacing={2}>
+            {
+              savedPostss.map((post) => (
+
+                <div key={post._id} className="card postCard">
+                  <Link to={`/pin/${post.title}`}>
+                    <div className="card-image">
+                      <img src={`http://localhost:8000/${post?.image.replace(/\\/g, '/')}`} alt="" />
+
+                    </div>
+                    <div className="overlay"></div>
+                    <div className="savebtn">Save</div>
+                    <div className="details "></div>
+                    <div className="postIcons">
+                      <TbDownload className="downloadIcon" />
+                      <HiOutlineDotsHorizontal />
+                    </div>
+                  </Link>
+                </div>
+              ))
+            }
+
+
+          </Masonry>
+        </Box>
+      </div>
     </>
   );
 }
