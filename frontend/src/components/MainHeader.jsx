@@ -91,7 +91,7 @@ const MainHeader = () => {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                                <Dropdown.Item ><Link to={`/${slug}`}>Profile</Link></Dropdown.Item>
+                            <Link to={`/${slug}`} className="dropdown-item">Profile</Link>
                                 <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>

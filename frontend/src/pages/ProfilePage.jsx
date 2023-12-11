@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useSelector } from "react-redux";
 import { FaPinterest } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { TbDownload } from "react-icons/tb";
@@ -9,10 +9,17 @@ import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import Box from "@mui/material/Box";
 import Masonry from "@mui/lab/Masonry";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 const ProfilePage = () => {
-  // const dispatch = useDispatch();
-  const location = useLocation();
+  const [value, setValue] = useState('1');
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   const user = useSelector((state) => state.auth.userDetails);
   const token = useSelector((state) => state.auth.token);
 
@@ -53,7 +60,7 @@ const ProfilePage = () => {
 
       const response = await axios.request(config);
       const createdData = response.data.savedPosts;
-      console.log('response', createdData);
+      console.log('savedResponse', createdData);
       setSavedPosts(createdData);
     } catch (error) {
       console.log(error);
@@ -84,88 +91,103 @@ const ProfilePage = () => {
       <div className="container-fluid">
         <div className="userdetails">
           <div className="avatar">
-            <img className="w-100 h-100" src="https://www.svgrepo.com/show/382106/male-avatar-boy-face-man-user-9.svg" alt="" />
+            {
+              user.image ?
+                <img className="w-100 h-100" src={`http://localhost:8000/${user?.image.replace(/\\/g, '/')}`} alt="" />
+
+                :
+                <img className="w-100 h-100" src="https://www.svgrepo.com/show/382106/male-avatar-boy-face-man-user-9.svg" alt="" />
+
+
+            }
           </div>
           <div className="name h4 fw-bold text-nowrap pt-4">
             {user.name}
           </div>
           <div className="pinterest-username text-secondary"><FaPinterest /> {user.email}</div>
 
-          <div className="profileButtons d-flex gap-2 mt-5">
+          <div className="profileButtons d-flex gap-2 my-5">
             <div className="share">Share</div>
-            <div className="share">Edit Profile</div>
+            <Link to={'/profile'} className="share text-decoration-none">Edit Profile</Link>
           </div>
 
+          <TabContext value={value}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <TabList onChange={handleChange} aria-label="lab API tabs example">
+                <Tab label="Created" value="1" />
+                <Tab label="Saved" value="2" />
+              </TabList>
+            </Box>
+            <TabPanel value="1">
 
-          <div className="createdSaved d-flex gap-5 mt-5">
-            <Link to={`/created`} className={location.pathname.endsWith('/created') ? 'created active' : 'created'}>Created</Link>
-            <Link to={`/saved`} className={location.pathname.endsWith('/saved') ? 'created active' : 'created'}>Saved</Link>
-          </div>
+              <div className="container-fluid  postContainer d-flex flex-wrap">
+                <Box sx={{ width: '100%', maxHeight: 600 }}>
+                  <Masonry
+                    columns={getColumnCount()}
+                    spacing={2}>
+                    {
+                      createdPosts.map((post) => (
+
+                        <div key={post._id} className="card postCard">
+                          <Link to={`/pin/${post.title}`}>
+                            <div className="card-image">
+                              <img src={`http://localhost:8000/${post?.image.replace(/\\/g, '/')}`} alt="" />
+
+                            </div>
+                            <div className="overlay"></div>
+                            <div className="savebtn">Save</div>
+                            <div className="details "></div>
+                            <div className="postIcons">
+                              <TbDownload className="downloadIcon" />
+                              <HiOutlineDotsHorizontal />
+                            </div>
+                          </Link>
+                        </div>
+                      ))
+                    }
 
 
+                  </Masonry>
+                </Box>
+              </div>
+            </TabPanel>
 
+            
+            <TabPanel value="2">
+              <div className="container-fluid  postContainer d-flex flex-wrap">
+                <Box sx={{ width: '100%', maxHeight: 600 }}>
+                  <Masonry
+                    columns={getColumnCount()}
+                    spacing={2}>
+                    {
+                      savedPostss.map((post) => (
+
+                        <div key={post._id} className="card postCard">
+                          <Link to={`/pin/${post.title}`}>
+                            <div className="card-image">
+                              <img src={`http://localhost:8000/${post?.image.replace(/\\/g, '/')}`} alt="" />
+
+                            </div>
+                            <div className="overlay"></div>
+                            <div className="savebtn">Save</div>
+                            <div className="details "></div>
+                            <div className="postIcons">
+                              <TbDownload className="downloadIcon" />
+                              <HiOutlineDotsHorizontal />
+                            </div>
+                          </Link>
+                        </div>
+                      ))
+                    }
+
+
+                  </Masonry>
+                </Box>
+              </div>
+
+            </TabPanel>
+          </TabContext>
         </div>
-      </div>
-      <div className="container-fluid  postContainer d-flex flex-wrap">
-        <Box sx={{ width: '100%', maxHeight: 600 }}>
-          <Masonry
-            columns={getColumnCount()}
-            spacing={2}>
-            {
-              createdPosts.map((post) => (
-
-                <div key={post._id} className="card postCard">
-                  <Link to={`/pin/${post.title}`}>
-                    <div className="card-image">
-                      <img src={`http://localhost:8000/${post?.image.replace(/\\/g, '/')}`} alt="" />
-
-                    </div>
-                    <div className="overlay"></div>
-                    <div className="savebtn">Save</div>
-                    <div className="details "></div>
-                    <div className="postIcons">
-                      <TbDownload className="downloadIcon" />
-                      <HiOutlineDotsHorizontal />
-                    </div>
-                  </Link>
-                </div>
-              ))
-            }
-
-
-          </Masonry>
-        </Box>
-      </div>
-
-      <div className="container-fluid  postContainer d-flex flex-wrap">
-        <Box sx={{ width: '100%', maxHeight: 600 }}>
-          <Masonry
-            columns={getColumnCount()}
-            spacing={2}>
-            {
-              savedPostss.map((post) => (
-
-                <div key={post._id} className="card postCard">
-                  <Link to={`/pin/${post.title}`}>
-                    <div className="card-image">
-                      <img src={`http://localhost:8000/${post?.image.replace(/\\/g, '/')}`} alt="" />
-
-                    </div>
-                    <div className="overlay"></div>
-                    <div className="savebtn">Save</div>
-                    <div className="details "></div>
-                    <div className="postIcons">
-                      <TbDownload className="downloadIcon" />
-                      <HiOutlineDotsHorizontal />
-                    </div>
-                  </Link>
-                </div>
-              ))
-            }
-
-
-          </Masonry>
-        </Box>
       </div>
     </>
   );
