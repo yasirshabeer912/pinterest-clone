@@ -8,12 +8,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { searchResults } from "../store/actions/postActions";
+import { FaHome, FaSearch } from "react-icons/fa";
+
 const MainHeader = () => {
     const dispatch = useDispatch();
     const [slug, setSlug] = useState('')
     const [searchTerm, setSearchTerm] = useState('');
     const user = useSelector((state) => state.auth.userDetails);
     const navigate = useNavigate()
+
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             const UserName = user.name
@@ -31,16 +34,16 @@ const MainHeader = () => {
 
 
 
-    const handleSearch = async (e) => { 
+    const handleSearch = async (e) => {
         e.preventDefault();
-    
+
         try {
             const response = await axios.post(`http://localhost:8000/api/search?q=${searchTerm}`, {
                 headers: {
                     'Accept': 'application/json',
                 },
             });
-    
+
             // console.log(response);
             const data = response.data;
             console.log(data);
@@ -52,7 +55,7 @@ const MainHeader = () => {
     };
     return (
         <>
-            <div className="container-fluid fixed-top header__">
+            <div className="container-fluid fixed-top header__ d-none d-md-block">
                 <div className=" d-flex gap-2 justify-content-between align-items-center py-4 px-3 ">
                     <div className="left d-flex gap-3  align-items-center">
                         <div className="logo d-flex align-items-center gap-1">
@@ -78,7 +81,7 @@ const MainHeader = () => {
                     <form className="w-75" onSubmit={handleSearch}>
 
                         <div className="formHeader w-100 d-flex align-items-center">
-                            <input type="text" className="w-100 headerInput" placeholder="Search Here....." onChange={(e)=>setSearchTerm(e.target.value)} />
+                            <input type="text" className="w-100 headerInput" placeholder="Search Here....." onChange={(e) => setSearchTerm(e.target.value)} />
 
                         </div>
                     </form>
@@ -91,7 +94,7 @@ const MainHeader = () => {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                            <Link to={`/${slug}`} className="dropdown-item">Profile</Link>
+                                <Link to={`/${slug}`} className="dropdown-item">Profile</Link>
                                 <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
@@ -99,6 +102,37 @@ const MainHeader = () => {
                     </div>
                 </div>
             </div>
+
+
+            <div className="container-fluid fixed-top header__ d-flex align-items-center d-block d-md-none">
+                <div className="d-flex justify-content-between flex-row align-items-center w-100 ">
+                    <Link to={'/'}><FaHome /></Link>
+                    <Link to={'/mobileSearch'}><FaSearch /></Link>
+
+                    <IoChatbubbleEllipsesSharp />
+                    <Dropdown>
+                        <Dropdown.Toggle className="awwwwww">
+                            <div className="mobile_avatar">
+                                {user?.image ?
+                                    <img className="w-100 h-100" src={`http://localhost:8000/${user.image.replace(/\\/g, '/')}`} alt="" />
+                                    :
+                                    <img className="w-100 h-100" src="https://www.svgrepo.com/show/382106/male-avatar-boy-face-man-user-9.svg" alt="" />
+                                }
+                            </div>
+
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <Link to={`/${slug}`} className="dropdown-item">Profile</Link>
+                            <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+
+                </div>
+            </div>
+
+
+
 
         </>
     )

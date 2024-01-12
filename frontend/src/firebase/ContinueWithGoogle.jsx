@@ -1,31 +1,25 @@
-import { signInWithPopup } from "firebase/auth";
-import { auth, provider } from "../firebase/firebase";
+
 import { setUserDetails } from '../store/actions/authActions';
 import { useDispatch } from 'react-redux';
 
 // eslint-disable-next-line react/prop-types
 const ContinueWithGoogle = ({ setShow }) => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+
     const handleGoogleLogin = async () => {
         try {
-            const result = await signInWithPopup(auth, provider);
-            const user = result.user;
-            console.log(user);
-            // Fetch additional user details from the authentication response
-            const displayName = user.displayName;
-            const email = user.email;
-            dispatch(setUserDetails({ name: displayName, email }));
+            window.open('http://localhost:5000/auth/google/callback', '_self')
 
-            setShow(false);
         } catch (error) {
-            console.error(error);
+            console.error('Error aa gya bhai', error);
         }
     };
+
     return (
         <>
             <div className="btn authBtn google" onClick={handleGoogleLogin}>Continue With Google</div>
         </>
-    )
+    );
 }
 
-export default ContinueWithGoogle
+export default ContinueWithGoogle;

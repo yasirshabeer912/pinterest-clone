@@ -45,7 +45,7 @@ const CreatePost = () => {
       formData.append("description", description);
       console.log(formData);
 
-      const response = await fetch("http://localhost:8000/api/createPost", {
+      const response = await fetch("http://localhost:5000/api/createPost", {
         method: "POST",
         headers:{
           Authorization: token

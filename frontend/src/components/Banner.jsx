@@ -2,7 +2,7 @@
 const Banner = () => {
   return (
     <div>
-        <div className="banner flex-column">
+        <div className="banner flex-column d-none d-md-block">
             <div className="headings text-center">
                 <div className="heading1 fw-bold">Get Your Next</div>
                 <div className="heading2 fw-bold">Weeknight Dinner Idea Here</div>

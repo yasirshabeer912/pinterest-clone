@@ -20,7 +20,7 @@ const SinglePost = () => {
             <div className="col-md-6 postImage">
               <img
                 className="w-100 h-100 img-fluid"
-                src={`http://localhost:8000/${post?.image.replace(/\\/g, '/')}`}
+                src={`http://localhost:5000/${post?.image.replace(/\\/g, '/')}`}
                 alt=""
               />
             </div>

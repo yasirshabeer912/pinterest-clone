@@ -1,5 +1,5 @@
 const express = require('express');
-const { registerUser, loginUser, getToken, getUserDetails, updateUser } = require('../controllers/authController');
+const { registerUser, loginUser, getToken, getUserDetails, updateUser,googleLogin, googleCallback } = require('../controllers/authController');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
@@ -29,5 +29,7 @@ router.get('/getUser/:id', getUserDetails);
 router.post('/', registerUser);
 router.post('/auth', loginUser);
 router.put('/updateUser/:id', upload.single('image'), updateUser);
+
+
 
 module.exports = router;

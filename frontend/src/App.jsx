@@ -12,6 +12,7 @@ import ProfilePage from "./pages/ProfilePage";
 import Created from "./pages/Created";
 import SearchedPosts from "./pages/SearchedPosts";
 import EditProfile from "./pages/EditProfile";
+import MobileSearch from "./components/MobileSearch";
 const App = () => {
   const token = useSelector((state)=>state.auth.token)
   const email = useSelector((state) => state.auth.userDetails?.email);
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/:name/created" element={<Created />} />
           <Route path="/search" element={<SearchedPosts />} />
           <Route path="/profile" element={<EditProfile />} />
+          <Route path="/mobileSearch" element={<MobileSearch />} />
         </Routes>
       </Router>
     </>

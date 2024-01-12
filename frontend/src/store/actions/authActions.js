@@ -32,7 +32,7 @@ export const decodeToken = (token) => {
     console.log('token in the decode token function ',token);
     return async (dispatch) => {
         try {
-            const apiUrl = "http://localhost:8000/api/users/decodeToken";
+            const apiUrl = "http://localhost:5000/api/users/decodeToken";
             const response = await axios.post(apiUrl, null, {
                 headers: {
                     Authorization: token,
@@ -53,7 +53,7 @@ export const getUserDetails = (userId) => {
     return async (dispatch) => {
 
         try {
-            const apiUrl = `http://localhost:8000/api/users/getUser/${userId}`;
+            const apiUrl = `http://localhost:5000/api/users/getUser/${userId}`;
             const response = await axios.get(apiUrl);
             console.log(response);
             const userDetails = response.data;

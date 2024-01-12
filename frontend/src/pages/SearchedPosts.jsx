@@ -34,7 +34,7 @@ const SearchedPosts = () => {
                             <div key={post._id} className="card postCard">
                                 <Link to={`/pin/${post.title}`}>
                                     <div className="card-image">
-                                        <img src={`http://localhost:8000/${post?.image.replace(/\\/g, '/')}`} alt="" />
+                                        <img src={`http://localhost:5000/${post?.image.replace(/\\/g, '/')}`} alt="" />
                                     </div>
                                     <div className="overlay"></div>
                                     <Link to='/' className="savebtn">Save</Link>

@@ -3,12 +3,15 @@ import MainHeader from "./MainHeader";
 import Login from "./Login";
 import Signup from "./Signup";
 import { useDispatch, useSelector } from "react-redux";
-import { decodeToken, getUserDetails } from "../store/actions/authActions";
+import { decodeToken, getUserDetails, setUserDetails } from "../store/actions/authActions";
+import axios from "axios";
 const Header = () => {
   const [show, setShow] = useState(false);
   const [showW, setShowW] = useState(false);
   const token = useSelector((state) => state.auth.token);
   const email = useSelector((state) => state.auth.userDetails?.email);
+  const user = useSelector((state) => state.auth.userDetails);
+
   // console.log('emailll',email);
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.user ? state.auth.user.userId : null);
@@ -24,7 +27,44 @@ const Header = () => {
   
     fetchData();
   }, [token, dispatch, userId]);
+
+  const [userdata, setUserdata] = useState({});
+    console.log("response", userdata)
+
+    const getUser = async (dispatch) => {
+      try {
+          const response = await fetch("http://localhost:5000/login/sucess", {
+              method: 'GET',
+              credentials: 'include',
+          });
   
+          if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+  
+          const data = await response.json();
+          console.log(data);
+  
+          // Assuming you have a setToken action, you can dispatch the token with await
+          await dispatch(loginSuccess(data.user.token));
+  
+          // Assuming you also have a setUserDetails action, you can dispatch the user details with await
+          await dispatch(setUserDetails(data.user));
+      } catch (error) {
+          console.error("Error", error);
+      }
+  };
+  
+  
+
+    // logoout
+    const logout = ()=>{
+        window.open("http://localhost:5000/logout","_self")
+    }
+
+    useEffect(() => {
+        getUser()
+    }, [])
 
   return (
     <div>
@@ -50,18 +90,18 @@ const Header = () => {
                   </svg>
                   <div className="logo-name">Pinterest</div>
                 </div>
-                <div className="nav__link ">Watch</div>
+                <div className="nav__link d-none d-md-block">Watch</div>
                 <div className="nav__link">Explore</div>
               </div>
               <div className="right d-flex gap-4 align-items-center">
-                <div className="nav__link">About</div>
-                <div className="nav__link">Business</div>
-                <div className="nav__link">Blog</div>
-                <div className="btns d-flex gap-2">
+                <div className="nav__link d-none d-md-block">About</div>
+                <div className="nav__link d-none d-md-block">Business</div>
+                <div className="nav__link d-none d-md-block">Blog</div>
+                <div className="btns d-flex gap-2 d-none d-md-block">
                   <div className="btn LoginBtn" onClick={() => setShow(true)}>
                     Login
                   </div>
-                  <div className="btn SignUpBtn" onClick={() => setShowW(true)}>
+                  <div className="btn SignUpBtn " onClick={() => setShowW(true)}>
                     Sign Up
                   </div>
                 </div>

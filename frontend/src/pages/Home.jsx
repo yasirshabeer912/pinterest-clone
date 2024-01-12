@@ -1,4 +1,5 @@
 import Banner from "../components/Banner"
+import MobileWelcom from "../components/MobileWelcom"
 import OtherSections from "../components/OtherSections"
 
 const Home = () => {
@@ -6,6 +7,7 @@ const Home = () => {
     <div>
       <Banner/>
       <OtherSections/>
+      <MobileWelcom/>
     </div>
   )
 }

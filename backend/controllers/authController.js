@@ -1,7 +1,59 @@
+const OAuth2Strategy = require("passport-google-oauth2").Strategy;
 const asyncHandler = require('express-async-handler');
 const User = require('../models/User')
 const bycrypt = require('bcrypt')
 var jwt = require('jsonwebtoken');
+const passport = require('passport');
+
+
+clientid ="1031099173757-baldfvvi8la4cghp6j4k3u4vsbau0fkj.apps.googleusercontent.com"
+clientsecret="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"
+
+passport.use(
+    new OAuth2Strategy({
+        clientID: clientid,
+        clientSecret: clientsecret,
+        callbackURL: "/auth/google/callback",
+        scope: ["profile", "email"]
+    },
+    async (accessToken, refreshToken, profile, done) => {
+        try {
+            let user = await User.findOne({ googleId: profile.id });
+
+            if (!user) {
+                user = new User({
+                    googleId: profile.id,
+                    name: profile.displayName,
+                    email: profile.emails[0].value,
+                    image: profile.photos[0].value
+                });
+
+                await user.save();
+            }
+
+            // Create a token payload with the user ID
+                const payload = { userId: user._id };
+
+                // Sign the token with the payload and secret key
+                const token = jwt.sign(payload, process.env.JWT_SECRET, {
+                    expiresIn: '30d',
+                });
+
+            return done(null, { user, token }); // Include token in the response
+        } catch (error) {
+            return done(error, null);
+        }
+    }
+));
+
+
+passport.serializeUser((user,done)=>{
+    done(null,user);
+})
+
+passport.deserializeUser((user,done)=>{
+    done(null,user);
+});
 
 const registerUser = asyncHandler(async (req, res) => {
     const { email, password, confirmPassword, name } = req.body
@@ -126,4 +178,12 @@ const updateUser = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 };
-module.exports = { registerUser, loginUser, getToken, getUserDetails, updateUser };
+
+
+module.exports = {
+    registerUser,
+    loginUser,
+    getToken,
+    getUserDetails,
+    updateUser,
+};

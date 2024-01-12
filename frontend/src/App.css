@@ -1,41 +1,54 @@
-a{
+a {
   text-decoration: none !important;
   color: black !important;
 }
-.header__{
+
+.header__ {
   background-color: #FFFFFF;
 }
-.logo{
+
+.logo {
   color: #e60023 !important;
   font-weight: bold;
 }
 
-.logo svg{
+.logo svg {
   color: #e60023;
 }
-.btns .SignUpBtn{
+
+.btns .SignUpBtn {
   padding: 10px 13px;
   background-color: #E2E2E2;
   border-radius: 30px;
   color: black;
 }
-.btns .LoginBtn{
-  padding: 10px 13px;;
+
+.btns .LoginBtn {
+  padding: 10px 13px;
+  ;
   background-color: #e60023;
   border-radius: 30px;
   color: white;
 }
-.nav__link{
+.LoginBtn:hover{
+  background-color: #99071d !important;
+  color: rgb(207, 202, 202) !important;
+}
+
+.nav__link {
   color: black;
   text-decoration: none;
 }
-.show{
+
+.show {
   display: block !important;
 }
-.hide{
+
+.hide {
   display: none !important;
 }
-.banner{
+
+.banner {
   width: 100vw;
   height: 95vh;
   display: flex;
@@ -44,43 +57,52 @@ a{
   position: relative;
   overflow: hidden;
 }
-.banner .headings{
+
+.banner .headings {
   position: absolute;
   margin-bottom: 20%;
 }
-.headings .heading1{
+
+.headings .heading1 {
   font-size: 4rem !important;
   color: black;
 }
-.headings .heading2{
+
+.headings .heading2 {
   font-size: 3rem !important;
   color: green;
 }
-.images{
+
+.images {
   height: 350px;
   object-fit: cover;
   width: 250px;
 }
-.mansory{
-  margin-top:27% ;
+
+.mansory {
+  margin-top: 27%;
 }
-.mansory .images img{
+
+.mansory .images img {
   border-radius: 20px;
   height: 100%;
   width: 100%;
 }
-.columtwo{
+
+.columtwo {
   margin-top: 5%;
 }
-.columthree{
+
+.columthree {
   margin-top: 10%;
 }
-.columfour{
+
+.columfour {
   margin-top: 20%;
 }
 
 
-.bottom-layer{
+.bottom-layer {
   position: absolute;
   background: linear-gradient(to top, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 0) 100%);
   width: 100%;
@@ -88,36 +110,42 @@ a{
   bottom: 0;
 }
 
-.idea{
+.idea {
   background-color: #FFFD92;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   color: #C31952;
-  
+
 }
-.image{
+
+.image {
   cursor: pointer;
 }
-.image img{
+
+.image img {
   width: 300px !important;
 }
-.__idea .idea .image{
+
+.__idea .idea .image {
   position: relative;
 }
-.input__{
+
+.input__ {
   position: absolute;
   width: 50%;
   height: 20%;
-  border-radius:50px;
+  border-radius: 50px;
   top: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
 }
-.explore{
-  padding: 10px 13px;;
+
+.explore {
+  padding: 10px 13px;
+  ;
   background-color: #C31952;
   border-radius: 30px;
   color: white;
@@ -125,11 +153,13 @@ a{
   margin: 20px auto;
   cursor: pointer;
 }
-.awwwwww{
+
+.awwwwww {
   background-color: white !important;
   border: none !important;
 }
-.container-fluid.signup{
+
+.container-fluid.signup {
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("https://ideaspot.tv/wp-content/uploads/2022/12/image-12-1536x802.png");
   width: 100%;
   height: auto;
@@ -138,7 +168,7 @@ a{
   background-position: center;
 }
 
-.bottom-layer{
+.bottom-layer {
   position: absolute;
   background: linear-gradient(to top, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 0) 100%);
   width: 100%;
@@ -146,28 +176,31 @@ a{
   bottom: 0;
 }
 
-section.idea{
+section.idea {
   background-color: #FFFD92;
   width: 100vw;
   height: 100vh;
 }
 
-.rightmain svg{
-font-size: 30px;
-margin: 0 10px;
-cursor: pointer;
-color: #5F5F5F;
+.rightmain svg {
+  font-size: 30px;
+  margin: 0 10px;
+  cursor: pointer;
+  color: #5F5F5F;
 }
-.formHeader{
+
+.formHeader {
   position: relative;
 }
-.headerInput{
+
+.headerInput {
   border: none;
   background-color: #E9E9E9;
   border-radius: 30px;
   padding: 15px;
 }
-.select-box{
+
+.select-box {
   background-color: #E9E9E9;
   padding: 15px;
   border-radius: 30px;
@@ -175,12 +208,12 @@ color: #5F5F5F;
   right: 0;
 }
 
-.postContainer{
+.postContainer {
   margin-top: 8%;
   padding: 0 5% !important;
 }
 
-.savebtn{
+.savebtn {
   width: 60px;
   padding: 8px;
   background-color: #e60023;
@@ -193,10 +226,12 @@ color: #5F5F5F;
   transition: all ease .3s;
   text-decoration: none;
 }
-.savebtn:hover{
+
+.savebtn:hover {
   background-color: #cc0623;
 }
-.postCard{
+
+.postCard {
   position: relative;
   width: 250px;
   min-height: 200px;
@@ -206,13 +241,15 @@ color: #5F5F5F;
   cursor: pointer;
   transition: all ease .3s;
 }
-.card-image img{
+
+.card-image img {
   width: 100%;
   min-height: 200px;
   height: 100% !important;
   border-radius: 15px;
 }
-.postCard .details{
+
+.postCard .details {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -220,35 +257,43 @@ color: #5F5F5F;
   justify-content: center;
   align-items: center;
 }
-.postCard:hover .details{
+
+.postCard:hover .details {
   color: white;
 }
-.postIcons{
+
+.postIcons {
   position: absolute;
   bottom: 5%;
   right: 5%;
   color: black;
 }
-.postIcons svg{
+
+.postIcons svg {
   font-size: 30px;
   background-color: #E9E9E9;
   border-radius: 50%;
   padding: 5px;
   margin: 0 5px;
   transition: all ease .3s;
-  
+
 }
-.postIcons svg:hover{
+
+.postIcons svg:hover {
   background-color: white;
 }
-.postCard:hover .card-image img{
+
+.postCard:hover .card-image img {
   background-color: #5F5F5F;
 }
-.postIcons,.savebtn{
+
+.postIcons,
+.savebtn {
   display: none;
 }
+
 .postCard:hover .postIcons,
-.postCard:hover .savebtn{
+.postCard:hover .savebtn {
   display: block;
 }
 
@@ -260,7 +305,8 @@ color: #5F5F5F;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Adjust the overlay color and opacity as needed */
+  background: rgba(0, 0, 0, 0.5);
+  /* Adjust the overlay color and opacity as needed */
   border-radius: 15px;
   display: none;
   transition: all ease .3s;
@@ -271,79 +317,94 @@ color: #5F5F5F;
 }
 
 .my-masonry-grid {
-  display: -webkit-box; /* Not needed if autoprefixing */
-  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: -webkit-box;
+  /* Not needed if autoprefixing */
+  display: -ms-flexbox;
+  /* Not needed if autoprefixing */
   display: flex
-   /* gutter size offset */
+    /* gutter size offset */
 }
+
 .my-masonry-grid_column {
   background-clip: padding-box;
 }
 
 /* Style your items */
-.my-masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
+.my-masonry-grid_column>div {
+  /* change div to reference your elements you put in <Masonry> */
   background: grey;
   margin-bottom: 30px;
 }
 
 
-.modelAuth{
+.modelAuth {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
-.modelAuth .pinSVG{
+
+.modelAuth .pinSVG {
   font-size: 3rem;
-  color:#cc0623;
+  color: #cc0623;
 }
-.modelAuth .MuiCircularProgress-root{
+
+.modelAuth .MuiCircularProgress-root {
   width: 30px !important;
   height: 30px !important;
 }
-.modelAuth .MuiCircularProgress-svg{
+
+.modelAuth .MuiCircularProgress-svg {
   font-size: 10px !important;
   color: white !important;
   size: 10px;
 }
-.authBtn{
-  background-color:#e60023 !important;
+
+.authBtn {
+  background-color: #e60023 !important;
   width: 100%;
   color: white !important;
-  border-radius: 30px  !important;
+  border-radius: 30px !important;
   padding: 15px !important;
 }
-.authBtn.google{
+
+.authBtn.google {
   background-color: #1877f2 !important;
 }
-.form-control{
+
+.form-control {
   padding: 15px !important;
   border: 2px solid #5F5F5F !important;
   border-radius: 16px !important;
 }
 
-.SingleContainer{
+.SingleContainer {
   margin-top: 8%;
   width: 70vw !important;
   height: 50vh;
   overflow: hidden;
 }
-.postImage{
+
+.postImage {
   width: 100%;
-  height: 50vh  !important;
+  height: 50vh !important;
   object-fit: cover;
 }
-.postImage img{
+
+.postImage img {
   object-fit: cover;
   height: 100%;
 }
-.postDetails{
+
+.postDetails {
   position: relative !important;
 }
-.post__nav{
+
+.post__nav {
   background-color: white;
 }
-.post__nav .Icons svg{
+
+.post__nav .Icons svg {
   font-size: 3rem;
   border-radius: 50%;
   font-weight: bold;
@@ -354,7 +415,7 @@ color: #5F5F5F;
 }
 
 
-.NavSavebtn{
+.NavSavebtn {
   width: 60px;
   padding: 8px;
   background-color: #e60023;
@@ -363,7 +424,8 @@ color: #5F5F5F;
   text-align: center;
   transition: all ease .3s;
 }
-.CreateFile{
+
+.CreateFile {
   width: 100%;
   height: 400px !important;
   border: 1px dotted #cc0623;
@@ -376,16 +438,18 @@ color: #5F5F5F;
   position: relative;
 }
 
-.CreateFile svg{
+.CreateFile svg {
   font-size: 5rem;
   color: #C31952;
 }
-.CreateFile .preview-image{
+
+.CreateFile .preview-image {
   object-fit: contain;
   width: 100% !important;
   height: 100% !important;
 }
-.overlayy{
+
+.overlayy {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.514);
   width: 100%;
@@ -397,81 +461,91 @@ color: #5F5F5F;
   transition: all linear .3s;
   opacity: 0;
 }
-.changeBtn{
+
+.changeBtn {
   border: 1px solid white;
   padding: 5px 20px;
   border-radius: 8px;
-  transition: all ease .2s  ;
+  transition: all ease .2s;
 }
-.changeBtn:hover{
+
+.changeBtn:hover {
   background-color: rgba(255, 255, 255, 0.292);
   color: yellow;
 }
 
-.CreateFile:hover .overlayy{
+.CreateFile:hover .overlayy {
   opacity: 1;
 }
 
-.createBtn{
+.createBtn {
   border: 2px solid #cc0623;
   padding: 8px 10px;
   border-radius: 8px;
   color: #cc0623;
   transition: all ease .3s;
 }
-.createBtn:hover{
+
+.createBtn:hover {
   background-color: #cc0623;
   color: white;
 }
 
-.profilePage{
+.profilePage {
   min-height: 76vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.userdetails{
+
+.userdetails {
   margin-top: 10%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.userdetails .avatar{
+
+.userdetails .avatar {
   width: 100px;
   height: 100px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 50%;
 }
-.avatar img{
+
+.avatar img {
   /* border-radius: 50% !important; */
   width: 100%;
   height: 100%;
   border-radius: 50%;
 }
 
-.profileButtons .share{
-  padding: 10px 20px ;
+.profileButtons .share {
+  padding: 10px 20px;
   background-color: #E9E9E9;
   border-radius: 30px;
   cursor: pointer;
   transition: all ease-in-out .3s;
 }
-.profileButtons .share:hover{
+
+.profileButtons .share:hover {
   background-color: #d8d6d6;
 }
-.createdSaved .created{
+
+.createdSaved .created {
   padding: 10px 0;
   cursor: pointer;
 }
-.createdSaved .created.active{
+
+.createdSaved .created.active {
   border-bottom: 2px solid black;
 }
 
 
-.editContainer{
+.editContainer {
   margin-top: 8%;
 }
-.profilePicture{
+
+.profilePicture {
   width: 150px;
   height: 150px !important;
   border: 1px dotted #cc0623;
@@ -485,31 +559,72 @@ color: #5F5F5F;
   border-radius: 50%;
 }
 
-.profilePicture svg{
+.profilePicture svg {
   font-size: 3rem;
   color: #C31952;
 }
-.profilePicture .preview-image{
+
+.profilePicture .preview-image {
   object-fit: contain;
   width: 100% !important;
   height: 100% !important;
   border-radius: 50%;
 }
-.overlayy.profile{
+
+.overlayy.profile {
   border-radius: 50%;
 }
-.profilePicture:hover .overlayy.profile{
+
+.profilePicture:hover .overlayy.profile {
   opacity: 1;
   border-radius: 50%;
 }
 
-.changeProfileBtn{
+.changeProfileBtn {
   border: 1px solid white;
   padding: 8px;
   border-radius: 8px;
-  transition: all ease .2s  ;
+  transition: all ease .2s;
 }
-.changeProfileBtn:hover{
+
+.changeProfileBtn:hover {
   background-color: rgba(255, 255, 255, 0.292);
   color: yellow;
+}
+
+
+@media (max-width:768px) {
+  .header__ {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0;
+    right: 0;
+    top: 90vh !important;
+  }
+
+  .header__ svg {
+    font-size: 30px;
+    color: #626262;
+  }
+
+  .postContainer {
+    margin-top: 8%;
+    padding: 0 !important;
+    padding-left: 20px !important;
+  }
+
+  .mobile_avatar {
+    width: 40px;
+    padding-top: 23px;
+  }
+
+  .mobileWelcomPage {
+    width: 100vw;
+    height: 100vh !important;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("https://ideaspot.tv/wp-content/uploads/2022/12/image-12-1536x802.png");
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 }

@@ -1,7 +1,7 @@
 const OtherSections = () => {
   return (
     <>
-      <div className="container-fluid __idea">
+      <div className="container-fluid __idea d-none d-md-block">
         <div className="idea d-flex justify-content-center align-items-center">
           <div className="image w-50 d-flex flex-column flex-md-row justify-content-center">
             <img
@@ -25,7 +25,7 @@ const OtherSections = () => {
           </div>
         </div>
       </div>
-      <div className="container-fluid signup">
+      <div className="container-fluid signup d-none d-md-block">
         <div className="container">
           <div className="row text-light">
 
@@ -42,25 +42,13 @@ const OtherSections = () => {
 
               <div className="form d-flex flex-column">
                 <input type="text" className="form-group" />
-                <input type="text" className="form-group" />
-                <input type="text" className="form-group" />
-                <input type="text" className="form-group" />
-                <input type="text" className="form-group" />
-                <input type="text" className="form-group" />
-                <input type="text" className="form-group" />
-                <input type="text" className="form-group" />
-                <input type="text" className="form-group" />
-                <input type="text" className="form-group" />
-                <input type="text" className="form-group" />
-                <input type="text" className="form-group" />
-                <input type="text" className="form-group" />
-                <input type="text" className="form-group" />
-                <input type="text" className="form-group" />
+                
               </div>
             </div>
           </div>
         </div>
       </div>
+
     </>
   );
 };

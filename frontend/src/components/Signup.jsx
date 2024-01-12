@@ -44,7 +44,7 @@ const Signup = ({showW,setShowW}) => {
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={handleSubmit}>
-              <div className="modelAuth px-5 pb-5">
+              <div className="modelAuth px-md-5 px-0 pb-5">
                 <FaPinterest className="pinSVG" />
                 <div className="h my-4">
                   <div className="h1 text-nowrap">Welcome To Pinterest</div>

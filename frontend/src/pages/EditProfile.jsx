@@ -40,7 +40,7 @@ const EditProfile = () => {
             formData.append('password', password);
             formData.append('image', image);
 
-            const response = await axios.put(`http://localhost:8000/api/users/updateUser/${user._id}`, formData, {
+            const response = await axios.put(`http://localhost:5000/api/users/updateUser/${user._id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -67,15 +67,16 @@ const EditProfile = () => {
             <div className="container">
                 <div className="row">
                     <div className="sidebar col-md-3">
-                        <div className="d-flex flex-column gap-3">
+                        <div className="d-flex flex-md-column flex-row gap-3">
                             <Link to="/profile">Profile Management</Link>
                             <div onClick={handleLogout} style={{cursor:'pointer'}}>Logout</div>
                         </div>
+                        <hr className="d-md-none d-block"/>
                     </div>
                     <div className="col-md-9">
-                        <div className="container">
-                            <div className="h3">EDIT PROFILE</div>
-                            <form action="" className="form" onSubmit={(e) => { e.preventDefault(); editProfileApi(); }}>
+                        <div className="container mt-5 mt-md-0 ">
+                            <div className="h3 text-center my-4">EDIT PROFILE</div>
+                            <form action="" className="form " onSubmit={(e) => { e.preventDefault(); editProfileApi(); }}>
                                 <div className="profilePicture " onClick={openFileInput}>
                                     <input
                                         type="file"
@@ -94,7 +95,7 @@ const EditProfile = () => {
                                         <>
                                             {
                                                 user.image ?
-                                                    <img className="preview-image  img-fluid" src={`http://localhost:8000/${user?.image.replace(/\\/g, '/')}`} alt="" />
+                                                    <img className="preview-image  img-fluid" src={`http://localhost:5000/${user?.image.replace(/\\/g, '/')}`} alt="" />
 
                                                     :
                                                     <img className="preview-image  img-fluid" src="https://www.svgrepo.com/show/382106/male-avatar-boy-face-man-user-9.svg" alt="" />
@@ -107,7 +108,7 @@ const EditProfile = () => {
                                         </>
                                     )}
                                 </div>
-                                <div className="mb-3 w-50">
+                                <div className="my-md-4 my-2 w-md-50 w-100">
                                     <label className="form-label">Name</label>
                                     <input
                                         type="text"
@@ -120,7 +121,7 @@ const EditProfile = () => {
                                         placeholder="Name"
                                     />
                                 </div>
-                                <div className="mb-3 w-50">
+                                <div className="my-md-4 my-2 w-md-50 w-100">
                                     <label className="form-label">Email</label>
                                     <input
                                         type="text"
@@ -133,7 +134,7 @@ const EditProfile = () => {
                                         placeholder="Email"
                                     />
                                 </div>
-                                <div className="mb-3 w-50">
+                                <div className="my-md-4 my-2 w-md-50 w-100">
                                     <label className="form-label">Change Password</label>
                                     <input
                                         type="password"

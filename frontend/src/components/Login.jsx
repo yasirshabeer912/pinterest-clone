@@ -19,7 +19,7 @@ const Login = ({ show, setShow }) => {
     e.preventDefault();
     setLoading(true)
     try {
-      const apiUrl = "http://localhost:8000/api/users/auth";
+      const apiUrl = "http://localhost:5000/api/users/auth";
       const {data} = await axios.post(apiUrl, { email, password });
         console.log(data);
         const token = data.token
