@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 // setuppassport
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/', express.static('./tmp'));
+app.use('/', express.static('./uploads'));
 app.use('/api/users', authRoutes);
 app.use('/api/', postRoutes)
 

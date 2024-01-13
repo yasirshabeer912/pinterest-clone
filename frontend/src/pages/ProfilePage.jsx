@@ -32,7 +32,7 @@ const ProfilePage = () => {
       const config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: `https://pinterest-clone-by-yasir.vercel.app/api/getPostsByUser/${user._id}`, // Updated URL
+        url: `http://localhost:5000/api/getPostsByUser/${user._id}`, // Updated URL
         headers: {
           'Authorization': token,
         },
@@ -52,7 +52,7 @@ const ProfilePage = () => {
       const config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: `https://pinterest-clone-by-yasir.vercel.app/api/getSavedPosts/${user._id}`, // Updated URL
+        url: `http://localhost:5000/api/getSavedPosts/${user._id}`, // Updated URL
         headers: {
           'Authorization': token,
         },
@@ -93,7 +93,7 @@ const ProfilePage = () => {
           <div className="avatar">
             {
               user.image ?
-                <img className="w-100 h-100" src={`https://pinterest-clone-by-yasir.vercel.app/${user?.image.replace(/\\/g, '/')}`} alt="" />
+                <img className="w-100 h-100" src={`http://localhost:5000/${user?.image.replace(/\\/g, '/')}`} alt="" />
 
                 :
                 <img className="w-100 h-100" src="https://www.svgrepo.com/show/382106/male-avatar-boy-face-man-user-9.svg" alt="" />
@@ -131,7 +131,7 @@ const ProfilePage = () => {
                         <div key={post._id} className="card postCard">
                           <Link to={`/pin/${post.title}`}>
                             <div className="card-image">
-                              <img src={`https://pinterest-clone-by-yasir.vercel.app/${post?.image.replace(/\\/g, '/')}`} alt="" />
+                              <img src={`http://localhost:5000/${post?.image.replace(/\\/g, '/')}`} alt="" />
 
                             </div>
                             <div className="overlay"></div>
@@ -165,7 +165,7 @@ const ProfilePage = () => {
                         <div key={post._id} className="card postCard">
                           <Link to={`/pin/${post.title}`}>
                             <div className="card-image">
-                              <img src={`https://pinterest-clone-by-yasir.vercel.app/${post?.image.replace(/\\/g, '/')}`} alt="" />
+                              <img src={`http://localhost:5000/${post?.image.replace(/\\/g, '/')}`} alt="" />
 
                             </div>
                             <div className="overlay"></div>
