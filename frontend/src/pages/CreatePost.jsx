@@ -39,6 +39,7 @@ const CreatePost = () => {
   };
 
   const postDetails = (pics) => {
+    console.log('In this Block Of Code');
     if (
       pics ===
       "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"

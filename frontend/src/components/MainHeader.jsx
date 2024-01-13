@@ -95,7 +95,7 @@ const MainHeader = () => {
                                 <Dropdown.Toggle className="awwwwww">
                                     <div className="w-100 h-100 rounded-circle">
                                         {user?.image ?
-                                            <img className="w-100 rounded-circle h-100" src={`http://localhost:5000/${user.image.replace(/\\/g, '/')}`} alt="" />
+                                            <img className="w-100 rounded-circle h-100" src={user.image} alt="" />
 
                                             :
 
@@ -134,7 +134,7 @@ const MainHeader = () => {
                             <Dropdown.Toggle className="awwwwww">
                                 <div className="w-100 h-100 rounded-circle">
                                     {user?.image ?
-                                        <img className="w-100 rounded-circle h-100" src={`http://localhost:5000/${user.image.replace(/\\/g, '/')}`} alt="" />
+                                        <img className="w-100 rounded-circle h-100" src={user.image} alt="" />
 
                                         :
 

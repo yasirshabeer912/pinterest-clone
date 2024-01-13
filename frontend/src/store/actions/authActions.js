@@ -9,6 +9,7 @@ export const loginSuccess = (token) => {
 };
 
 export const logout = () => {
+    
     return {
         type: 'LOGOUT',
     };

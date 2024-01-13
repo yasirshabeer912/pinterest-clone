@@ -12,7 +12,10 @@ const EditProfile = () => {
     const [name, setName] = useState(user.name);
     const [email, setEmail] = useState(user.email);
     const [password, setPassword] = useState("");
-    const [image, setImage] = useState("");
+    const [image, setImage] = useState(
+        "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+      );
+      const [picMessage, setPicMessage] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
 
     const openFileInput = () => {
@@ -22,27 +25,55 @@ const EditProfile = () => {
 
     const handleImageChange = (e) => {
         const selectedImage = e.target.files[0];
-
+    
         if (selectedImage) {
-            setImage(selectedImage);
-
-            // Create a preview URL for the selected image
-            const previewURL = URL.createObjectURL(selectedImage);
-            setImagePreview(previewURL);
+          postDetails(e.target.files[0]);
+    
+          const previewURL = URL.createObjectURL(selectedImage);
+          setImagePreview(previewURL);
         }
-    };
+      };
+    
+      const postDetails = (pics) => {
+        console.log('In this Block Of Code');
+        if (
+          pics ===
+          "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+        ) {
+          return setPicMessage("Please Select an Image");
+        }
+        setPicMessage(null);
+        if (pics.type === "image/jpeg" || pics.type === "image/png") {
+          const data = new FormData();
+          data.append("file", pics);
+          data.append("upload_preset", "pinterest");
+          data.append("cloud_name", "dsfr7nm3a");
+          fetch("https://api.cloudinary.com/v1_1/dsfr7nm3a/image/upload", {
+            method: "post",
+            body: data,
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+              setImage(data.url.toString());
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          return setPicMessage("Please Select an Image");
+        }
+      };
 
     const editProfileApi = async () => {
         try {
-            const formData = new FormData();
-            formData.append('name', name);
-            formData.append('email', email);
-            formData.append('password', password);
-            formData.append('image', image);
+            const formData = {
+                name,email,password,image
+            };
 
-            const response = await axios.put(`http://localhost:5000/api/users/updateUser/${user._id}`, formData, {
+            const response = await axios.put(`http://localhost:5000/api/users/updateUser/${user._id}`, JSON.stringify(formData), {
                 headers: {
-                    'Content-Type': 'multipart/form-data',
+                    "Content-Type": "application/json",
                 },
             });
 
@@ -95,7 +126,7 @@ const EditProfile = () => {
                                         <>
                                             {
                                                 user.image ?
-                                                    <img className="preview-image  img-fluid" src={`http://localhost:5000/${user?.image.replace(/\\/g, '/')}`} alt="" />
+                                                    <img className="preview-image  img-fluid" src={user?.image} alt="" />
 
                                                     :
                                                     <img className="preview-image  img-fluid" src="https://www.svgrepo.com/show/382106/male-avatar-boy-face-man-user-9.svg" alt="" />

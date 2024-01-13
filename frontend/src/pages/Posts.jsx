@@ -66,11 +66,7 @@ const Posts = () => {
 
   }
   
-  
 
-
-
-  const shuffledPosts = shuffleArray(allPostData);
 
   const isLargeScreen = useMediaQuery("(min-width: 800px)");
   const isMediumScreen = useMediaQuery("(min-width: 576px)");
@@ -89,7 +85,7 @@ const Posts = () => {
       <div className="container-fluid  postContainer d-flex flex-wrap">
         <Box sx={{ width: '100%', maxHeight: 600 }}>
           <Masonry columns={getColumnCount()} spacing={2}>
-            {shuffledPosts.map((post) => (
+            {allPostData.map((post) => (
               <div key={post._id} className="card postCard">
                 <Link to={`/pin/${post.title}`}>
                   <div className="card-image">

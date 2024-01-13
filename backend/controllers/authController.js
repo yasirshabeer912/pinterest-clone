@@ -171,8 +171,7 @@ const getUserDetails = asyncHandler(async (req, res) => {
 const updateUser = async (req, res) => {
     // console.log(req.body);
     const { id } = req.params;
-    const { name, email, password } = req.body;
-    const image = req.file ? req.file.filename : null;
+    const { name, email, password,image } = req.body;
     // console.log(image);
     try {
         // Assuming you have a User model and want to update name, email, password, and image
