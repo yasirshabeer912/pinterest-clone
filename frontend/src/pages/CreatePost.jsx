@@ -2,21 +2,25 @@ import { useEffect, useState } from "react";
 import { RiUploadCloudFill } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toast,ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const email = useSelector((state) => state.auth.userDetails?.email);
   const token = useSelector((state) => state.auth.token);
+  const [image, setImage] = useState(
+    "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+  );
+  const [picMessage, setPicMessage] = useState(null);
+
   useEffect(() => {
     if (!email) {
       navigate("/");
     }
   }, [email, navigate]);
-  
 
   const openFileInput = () => {
     var fileInput = document.getElementById("fileInput");
@@ -27,54 +31,82 @@ const CreatePost = () => {
     const selectedImage = e.target.files[0];
 
     if (selectedImage) {
-      setImage(selectedImage);
+      postDetails(e.target.files[0]);
 
-      // Create a preview URL for the selected image
       const previewURL = URL.createObjectURL(selectedImage);
       setImagePreview(previewURL);
     }
   };
 
+  const postDetails = (pics) => {
+    if (
+      pics ===
+      "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+    ) {
+      return setPicMessage("Please Select an Image");
+    }
+    setPicMessage(null);
+    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "pinterest");
+      data.append("cloud_name", "dsfr7nm3a");
+      fetch("https://api.cloudinary.com/v1_1/dsfr7nm3a/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setImage(data.url.toString());
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      return setPicMessage("Please Select an Image");
+    }
+  };
 
   const handleCreatePost = async (e) => {
     e.preventDefault();
+
     try {
-      const formData = new FormData();
-      formData.append("image", image);
-      formData.append("title", title);
-      formData.append("description", description);
+
+      const formData ={
+        title,description,image
+      }
       console.log(formData);
 
       const response = await fetch("http://localhost:5000/api/createPost", {
         method: "POST",
-        headers:{
-          Authorization: token
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
         },
-        body: formData,
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data.message); 
-        toast.success(data.message)
+        console.log(data.message);
+        toast.success(data.message);
       } else {
         const errorData = await response.json();
-        console.error(errorData.message); // Log error message
-        toast.error(errorData.message)
-
+        console.error(errorData.message);
+        toast.error(errorData.message);
       }
 
-      // Reset form fields and state
       setTitle("");
       setDescription("");
       setImage(null);
       setImagePreview(null);
 
-      // Clear the file input
       const fileInput = document.getElementById("fileInput");
       fileInput.value = null;
+
       setTimeout(() => {
-        navigate('/');
+        navigate("/");
       }, 2000);
     } catch (error) {
       console.error(error);
@@ -85,7 +117,7 @@ const CreatePost = () => {
     <div>
       <div className="creatContainer mt-5">
         <div className="container mt-5 py-md-5 py-0">
-        <hr  />
+          <hr />
           <div className="row fw-bold h3 ">
             <div className="text-capitalize text-center text-md-start">
               Create Post
@@ -94,7 +126,10 @@ const CreatePost = () => {
           <hr />
           <div className="row">
             <div className="col-md-5">
-            <div className="CreateFile w-md-75 w-100" onClick={openFileInput}>
+              <div
+                className="CreateFile w-md-75 w-100"
+                onClick={openFileInput}
+              >
                 <input
                   type="file"
                   id="fileInput"
@@ -103,10 +138,14 @@ const CreatePost = () => {
                 />
                 {imagePreview ? (
                   <>
-                  <img src={imagePreview} alt="Preview" className="preview-image  img-fluid" />
-                  <div className="overlayy">
-                    <div className="changeBtn">Change</div>
-                  </div>
+                    <img
+                      src={imagePreview}
+                      alt="Preview"
+                      className="preview-image img-fluid"
+                    />
+                    <div className="overlayy">
+                      <div className="changeBtn">Change</div>
+                    </div>
                   </>
                 ) : (
                   <>
@@ -141,7 +180,11 @@ const CreatePost = () => {
                     value={description}
                   ></textarea>
                 </div>
-                <button type="submit" className="createBtn" onClick={handleCreatePost}>
+                <button
+                  type="button"
+                  className="createBtn"
+                  onClick={handleCreatePost}
+                >
                   Create Post
                 </button>
               </form>
@@ -150,16 +193,16 @@ const CreatePost = () => {
         </div>
       </div>
       <ToastContainer
-      position="top-right"
-      autoClose={1000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-      theme="light"
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
       />
     </div>
   );

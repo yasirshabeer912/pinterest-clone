@@ -2,13 +2,12 @@ const asyncHandler = require('express-async-handler');
 const Post = require('../models/Post');
 const User = require('../models/User');
 const createPost = asyncHandler(async (req, res) => {
-  const { title, description } = req.body;
-
-  // Assuming you have an 'image' field in your Post model
-  const image = req.file ? req.file.filename : null;
-
+  console.log('Title',req.body.title);
+  console.log('description',req.body.description);
+  console.log('image',req.body.image);
+  const { title, description,image } = req.body;
   // Create a new post using the Post model
-  const owner = req.userId; // Updated line
+  const owner = req.userId; 
   // console.log('owner of this post is ', owner);
   const newPostData = {
     title,

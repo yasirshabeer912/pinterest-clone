@@ -1,6 +1,6 @@
 const handleDownload = (post) => {
     if (post?.image) {
-      const imageUrl = `http://localhost:5000/${post.image.replace(/\\/g, '/')}`;
+      const imageUrl = post.image;
       const link = document.createElement('a');
       link.href = imageUrl;
       link.download = 'image.jpg'; // You can set a custom name for the downloaded file
