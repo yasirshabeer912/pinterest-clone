@@ -19,7 +19,7 @@ const Posts = () => {
 
   const getPosts = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/getPosts');
+      const response = await fetch('https://pinterest-clone-by-yasir.vercel.app/api/getPosts');
       const data = await response.json();
       const postss = data.Posts;
       dispatch(allPosts(postss));
@@ -47,7 +47,7 @@ const Posts = () => {
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: `http://localhost:5000/api/savePosts/${id}`,
+      url: `https://pinterest-clone-by-yasir.vercel.app/api/savePosts/${id}`,
       headers: {
         'Authorization': token,
       }
@@ -93,7 +93,7 @@ const Posts = () => {
               <div key={post._id} className="card postCard">
                 <Link to={`/pin/${post.title}`}>
                   <div className="card-image">
-                    <img src={`http://localhost:5000/${post?.image.replace(/\\/g, '/')}`} alt="" />
+                    <img src={`https://pinterest-clone-by-yasir.vercel.app/${post?.image.replace(/\\/g, '/')}`} alt="" />
                   </div>
                   <div className="overlay"></div>
                   <Link to='/' className="savebtn"  onClick={() => handleSave(post._id)}>Save</Link>

@@ -40,7 +40,7 @@ const EditProfile = () => {
             formData.append('password', password);
             formData.append('image', image);
 
-            const response = await axios.put(`http://localhost:5000/api/users/updateUser/${user._id}`, formData, {
+            const response = await axios.put(`https://pinterest-clone-by-yasir.vercel.app/api/users/updateUser/${user._id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -95,7 +95,7 @@ const EditProfile = () => {
                                         <>
                                             {
                                                 user.image ?
-                                                    <img className="preview-image  img-fluid" src={`http://localhost:5000/${user?.image.replace(/\\/g, '/')}`} alt="" />
+                                                    <img className="preview-image  img-fluid" src={`https://pinterest-clone-by-yasir.vercel.app/${user?.image.replace(/\\/g, '/')}`} alt="" />
 
                                                     :
                                                     <img className="preview-image  img-fluid" src="https://www.svgrepo.com/show/382106/male-avatar-boy-face-man-user-9.svg" alt="" />
