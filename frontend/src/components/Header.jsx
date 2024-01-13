@@ -3,7 +3,7 @@ import MainHeader from "./MainHeader";
 import Login from "./Login";
 import Signup from "./Signup";
 import { useDispatch, useSelector } from "react-redux";
-import { decodeToken, getUserDetails, setUserDetails } from "../store/actions/authActions";
+import { decodeToken, getUserDetails, setUserDetails,loginSuccess } from "../store/actions/authActions";
 import axios from "axios";
 const Header = () => {
   const [show, setShow] = useState(false);
@@ -31,7 +31,7 @@ const Header = () => {
   const [userdata, setUserdata] = useState({});
     console.log("response", userdata)
 
-    const getUser = async (dispatch) => {
+    const getUser = async () => {
       try {
           const response = await fetch("http://localhost:5000/login/sucess", {
               method: 'GET',

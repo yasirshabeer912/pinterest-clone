@@ -6,8 +6,8 @@ var jwt = require('jsonwebtoken');
 const passport = require('passport');
 
 
-clientid ="1031099173757-baldfvvi8la4cghp6j4k3u4vsbau0fkj.apps.googleusercontent.com"
-clientsecret="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"
+clientid = '1031099173757-baldfvvi8la4cghp6j4k3u4vsbau0fkj.apps.googleusercontent.com'
+clientsecret = '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'
 
 passport.use(
     new OAuth2Strategy({
@@ -16,22 +16,36 @@ passport.use(
         callbackURL: "/auth/google/callback",
         scope: ["profile", "email"]
     },
-    async (accessToken, refreshToken, profile, done) => {
-        try {
-            let user = await User.findOne({ googleId: profile.id });
+        async (accessToken, refreshToken, profile, done) => {
+            try {
+                let user = await User.findOne({ googleId: profile.id });
 
-            if (!user) {
-                user = new User({
-                    googleId: profile.id,
-                    name: profile.displayName,
-                    email: profile.emails[0].value,
-                    image: profile.photos[0].value
-                });
+                if (!user) {
+                    // Check if a user with the same email already exists
+                    const existingUser = await User.findOne({ email: profile.emails[0].value });
 
-                await user.save();
-            }
+                    if (existingUser) {
+                        // Update the existing user's information if needed
+                        // For example, you can update the name and image
+                        existingUser.name = profile.displayName;
+                        existingUser.image = profile.photos[0].value;
+                        await existingUser.save();
 
-            // Create a token payload with the user ID
+                        user = existingUser;
+                    } else {
+                        // Create a new user
+                        user = new User({
+                            googleId: profile.id,
+                            name: profile.displayName,
+                            email: profile.emails[0].value,
+                            image: profile.photos[0].value
+                        });
+
+                        await user.save();
+                    }
+                }
+
+                // Create a token payload with the user ID
                 const payload = { userId: user._id };
 
                 // Sign the token with the payload and secret key
@@ -39,20 +53,20 @@ passport.use(
                     expiresIn: '30d',
                 });
 
-            return done(null, { user, token }); // Include token in the response
-        } catch (error) {
-            return done(error, null);
+                return done(null, { user: { id: user._id, name: user.name, email: user.email, image: user.image }, token });
+                // Include user ID, name, email, image, and token in the response
+            } catch (error) {
+                return done(error, null);
+            }
         }
-    }
-));
+    ));
 
-
-passport.serializeUser((user,done)=>{
-    done(null,user);
+passport.serializeUser((user, done) => {
+    done(null, user);
 })
 
-passport.deserializeUser((user,done)=>{
-    done(null,user);
+passport.deserializeUser((user, done) => {
+    done(null, user);
 });
 
 const registerUser = asyncHandler(async (req, res) => {
@@ -139,7 +153,7 @@ const getUserDetails = asyncHandler(async (req, res) => {
                 _id: user._id,
                 name: user.name,
                 email: user.email,
-                image:user.image
+                image: user.image
             };
 
             res.status(200).json(userDetails);
@@ -155,11 +169,11 @@ const getUserDetails = asyncHandler(async (req, res) => {
 });
 
 const updateUser = async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const { id } = req.params;
     const { name, email, password } = req.body;
     const image = req.file ? req.file.filename : null;
-    console.log(image);
+    // console.log(image);
     try {
         // Assuming you have a User model and want to update name, email, password, and image
         const updatedUser = await User.findByIdAndUpdate(

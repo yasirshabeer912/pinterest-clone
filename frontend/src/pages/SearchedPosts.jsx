@@ -23,7 +23,7 @@ const SearchedPosts = () => {
             return 2;
         }
     };
-    
+
 
     return (
         <>
@@ -40,12 +40,12 @@ const SearchedPosts = () => {
                                     <Link to='/' className="savebtn">Save</Link>
                                     <div className="details"></div>
                                     <div className="postIcons">
-                                    <Link to='/' >
-                      <TbDownload
-                        className="downloadIcon"
-                        onClick={() => handleDownload(post)}
-                      />
-                    </Link>
+                                        <Link to='/' >
+                                            <TbDownload
+                                                className="downloadIcon"
+                                                onClick={() => handleDownload(post)}
+                                            />
+                                        </Link>
                                         <HiOutlineDotsHorizontal />
                                     </div>
                                 </Link>

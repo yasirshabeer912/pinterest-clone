@@ -4,14 +4,16 @@ import { CgProfile } from "react-icons/cg";
 import { Dropdown } from "react-bootstrap";
 import { logout } from "../store/actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { searchResults } from "../store/actions/postActions";
 import { FaHome, FaSearch } from "react-icons/fa";
+import Tooltip from '@mui/material/Tooltip';
 
 const MainHeader = () => {
     const dispatch = useDispatch();
+    const location = useLocation();
     const [slug, setSlug] = useState('')
     const [searchTerm, setSearchTerm] = useState('');
     const user = useSelector((state) => state.auth.userDetails);
@@ -38,7 +40,7 @@ const MainHeader = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post(`http://localhost:8000/api/search?q=${searchTerm}`, {
+            const response = await axios.post(`http://localhost:5000/api/search?q=${searchTerm}`, {
                 headers: {
                     'Accept': 'application/json',
                 },
@@ -87,11 +89,21 @@ const MainHeader = () => {
                     </form>
                     <div className="rightmain d-flex gap-md-3 gap-1 align-items-center">
                         <IoIosNotifications />
-                        <IoChatbubbleEllipsesSharp />
+                        <Link to={'/chat'}><IoChatbubbleEllipsesSharp /></Link>
                         <Dropdown>
-                            <Dropdown.Toggle className="awwwwww">
-                                <CgProfile />
-                            </Dropdown.Toggle>
+                            <Tooltip title="Profile Info">
+                                <Dropdown.Toggle className="awwwwww">
+                                    <div className="w-100 h-100 rounded-circle">
+                                        {user?.image ?
+                                            <img className="w-100 rounded-circle h-100" src={`http://localhost:5000/${user.image.replace(/\\/g, '/')}`} alt="" />
+
+                                            :
+
+                                            <img className="w-100 rounded-circle h-100" src="https://www.svgrepo.com/show/382106/male-avatar-boy-face-man-user-9.svg" alt="" />
+                                        }
+                                    </div>
+                                </Dropdown.Toggle>
+                            </Tooltip>
 
                             <Dropdown.Menu>
                                 <Link to={`/${slug}`} className="dropdown-item">Profile</Link>
@@ -104,26 +116,37 @@ const MainHeader = () => {
             </div>
 
 
-            <div className="container-fluid fixed-top header__ d-flex align-items-center d-block d-md-none">
+            <div className="container-fluid fixed-top header__ d-flex align-items-center d-block d-md-none px-4 py-3">
                 <div className="d-flex justify-content-between flex-row align-items-center w-100 ">
-                    <Link to={'/'}><FaHome /></Link>
-                    <Link to={'/mobileSearch'}><FaSearch /></Link>
+                    <Link to={'/'} >
+                        <FaHome className={location.pathname === '/' ? 'Iconactive' : ''} />
+                    </Link>
+                    <Link
+                        to={'/mobileSearch'}
 
-                    <IoChatbubbleEllipsesSharp />
+                    >
+                        <FaSearch className={location.pathname === '/mobileSearch' ? 'Iconactive' : ''} />
+                    </Link>
+
+                    <Link to={'/chat'}><IoChatbubbleEllipsesSharp className={location.pathname === '/chat' ? 'Iconactive' : ''} /></Link>
                     <Dropdown>
-                        <Dropdown.Toggle className="awwwwww">
-                            <div className="mobile_avatar">
-                                {user?.image ?
-                                    <img className="w-100 h-100" src={`http://localhost:8000/${user.image.replace(/\\/g, '/')}`} alt="" />
-                                    :
-                                    <img className="w-100 h-100" src="https://www.svgrepo.com/show/382106/male-avatar-boy-face-man-user-9.svg" alt="" />
-                                }
-                            </div>
+                        <Tooltip title="Profile Info">
+                            <Dropdown.Toggle className="awwwwww">
+                                <div className="w-100 h-100 rounded-circle">
+                                    {user?.image ?
+                                        <img className="w-100 rounded-circle h-100" src={`http://localhost:5000/${user.image.replace(/\\/g, '/')}`} alt="" />
 
-                        </Dropdown.Toggle>
+                                        :
+
+                                        <img className="w-100 rounded-circle h-100" src="https://www.svgrepo.com/show/382106/male-avatar-boy-face-man-user-9.svg" alt="" />
+                                    }
+                                </div>
+                            </Dropdown.Toggle>
+                        </Tooltip>
 
                         <Dropdown.Menu>
                             <Link to={`/${slug}`} className="dropdown-item">Profile</Link>
+                            <Link to={`/create`} className="dropdown-item">Create Post</Link>
                             <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>

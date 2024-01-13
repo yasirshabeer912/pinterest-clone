@@ -37,9 +37,12 @@ app.get('/', (req, res) => {
 // setuppassport
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/', express.static('backend/uploads'));
+app.use('/', express.static('./uploads'));
 app.use('/api/users', authRoutes);
 app.use('/api/', postRoutes)
+
+
+
 // initial google ouath login
 app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
@@ -49,7 +52,7 @@ app.get("/auth/google/callback", passport.authenticate("google", {
 }))
 
 app.get("/login/sucess", async (req, res) => {
-    console.log(req.user);
+    // console.log(req.user);
     if (req.user) {
         res.status(200).json({ message: "user Login", user: req.user });
     } else {
@@ -64,7 +67,7 @@ app.get("/logout", (req, res, next) => {
         res.redirect("http://localhost:5173");
     })
 })
-const port = 5000;
+const port = process.env.PORT || 5001;
 app.listen(port, () => {
     console.log(`Connected on port ${port}`);
 });

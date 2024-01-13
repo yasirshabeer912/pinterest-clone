@@ -84,9 +84,13 @@ const CreatePost = () => {
   return (
     <div>
       <div className="creatContainer mt-5">
-        <hr />
-        <div className="container mt-5">
-          <div className="row">Create Post</div>
+        <div className="container mt-5 py-md-5 py-0">
+        <hr  />
+          <div className="row fw-bold h3 ">
+            <div className="text-capitalize text-center text-md-start">
+              Create Post
+            </div>
+          </div>
           <hr />
           <div className="row">
             <div className="col-md-5">
@@ -114,7 +118,7 @@ const CreatePost = () => {
             </div>
             <div className="col-md-7">
               <form className="form w-100">
-                <div className="mb-3">
+                <div className="my-4">
                   <label className="form-label">Title</label>
                   <input
                     type="text"
@@ -126,7 +130,7 @@ const CreatePost = () => {
                     value={title}
                   />
                 </div>
-                <div className="mb-3">
+                <div className="my-4">
                   <label className="form-label">Description</label>
                   <textarea
                     className="form-control w-md-75 w-100"

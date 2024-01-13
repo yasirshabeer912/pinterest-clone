@@ -75,7 +75,7 @@ const EditProfile = () => {
                     </div>
                     <div className="col-md-9">
                         <div className="container mt-5 mt-md-0 ">
-                            <div className="h3 text-center my-4">EDIT PROFILE</div>
+                            <div className="h3 fw-bold my-4">EDIT PROFILE</div>
                             <form action="" className="form " onSubmit={(e) => { e.preventDefault(); editProfileApi(); }}>
                                 <div className="profilePicture " onClick={openFileInput}>
                                     <input
@@ -108,7 +108,7 @@ const EditProfile = () => {
                                         </>
                                     )}
                                 </div>
-                                <div className="my-md-4 my-2 w-md-50 w-100">
+                                <div className="my-md-4 my-3 w-md-50 w-100">
                                     <label className="form-label">Name</label>
                                     <input
                                         type="text"
@@ -121,7 +121,7 @@ const EditProfile = () => {
                                         placeholder="Name"
                                     />
                                 </div>
-                                <div className="my-md-4 my-2 w-md-50 w-100">
+                                <div className="my-md-4 my-3 w-md-50 w-100">
                                     <label className="form-label">Email</label>
                                     <input
                                         type="text"
@@ -134,7 +134,7 @@ const EditProfile = () => {
                                         placeholder="Email"
                                     />
                                 </div>
-                                <div className="my-md-4 my-2 w-md-50 w-100">
+                                <div className="my-md-4 my-3 w-md-50 w-100">
                                     <label className="form-label">Change Password</label>
                                     <input
                                         type="password"
@@ -149,7 +149,7 @@ const EditProfile = () => {
                                 </div>
 
 
-                                <button type="submit" className="createBtn" >
+                                <button type="submit" className="createBtn mt-3" >
                                     Update Profile
                                 </button>
                             </form>

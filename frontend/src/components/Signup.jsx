@@ -19,7 +19,7 @@ const Signup = ({showW,setShowW}) => {
     e.preventDefault();
     setLoading(true)
     try {
-      const apiUrl = "http://localhost:8000/api/users/";
+      const apiUrl = "http://localhost:5000/api/users/";
       // eslint-disable-next-line no-unused-vars
       const { data } = await axios.post(apiUrl, {
         name,
