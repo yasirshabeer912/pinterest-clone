@@ -25,7 +25,7 @@ app.use(
 
 app.use(
     cors({
-        origin: "http://localhost:5173", // Replace with your client's origin
+        origin: "https://pinterest-clone-yasir.vercel.app", // Replace with your client's origin
         credentials: true,
     })
 );
@@ -47,8 +47,8 @@ app.use('/api/', postRoutes)
 app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
 app.get("/auth/google/callback", passport.authenticate("google", {
-    successRedirect: "http://localhost:5173",
-    failureRedirect: "http://localhost:5173"
+    successRedirect: "https://pinterest-clone-yasir.vercel.app",
+    failureRedirect: "https://pinterest-clone-yasir.vercel.app"
 }))
 
 app.get("/login/sucess", async (req, res) => {
@@ -64,7 +64,7 @@ app.get("/login/sucess", async (req, res) => {
 app.get("/logout", (req, res, next) => {
     req.logout(function (err) {
         if (err) { return next(err) }
-        res.redirect("http://localhost:5173");
+        res.redirect("https://pinterest-clone-yasir.vercel.app");
     })
 })
 const port = process.env.PORT || 5001;

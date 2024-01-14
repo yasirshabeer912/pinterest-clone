@@ -8,7 +8,7 @@ const ContinueWithGoogle = ({ setShow }) => {
 
     const handleGoogleLogin = async () => {
         try {
-            window.open('http://localhost:5000/auth/google/callback', '_self')
+            window.open('https://pinterest-clone-by-yasir.vercel.app/auth/google/callback', '_self')
 
         } catch (error) {
             console.error('Error aa gya bhai', error);
