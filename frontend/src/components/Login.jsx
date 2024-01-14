@@ -19,7 +19,7 @@ const Login = ({ show, setShow }) => {
     e.preventDefault();
     setLoading(true)
     try {
-      const apiUrl = "http://localhost:5000/api/users/auth";
+      const apiUrl = "https://pinterest-clone-one-mocha.vercel.app/api/users/auth";
       const {data} = await axios.post(apiUrl, { email, password });
         console.log(data);
         const token = data.token

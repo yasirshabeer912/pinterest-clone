@@ -19,7 +19,7 @@ const Posts = () => {
 
   const getPosts = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/getPosts');
+      const response = await fetch('https://pinterest-clone-one-mocha.vercel.app/api/getPosts');
       const data = await response.json();
       const postss = data.Posts;
       dispatch(allPosts(postss));
@@ -47,7 +47,7 @@ const Posts = () => {
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: `http://localhost:5000/api/savePosts/${id}`,
+      url: `https://pinterest-clone-one-mocha.vercel.app/api/savePosts/${id}`,
       headers: {
         'Authorization': token,
       }

@@ -33,7 +33,7 @@ const Header = () => {
 
     const getUser = async () => {
       try {
-          const response = await fetch("http://localhost:5000/login/sucess", {
+          const response = await fetch("https://pinterest-clone-one-mocha.vercel.app/login/sucess", {
               method: 'GET',
               credentials: 'include',
           });
@@ -59,7 +59,7 @@ const Header = () => {
 
     // logoout
     const logout = ()=>{
-        window.open("http://localhost:5000/logout","_self")
+        window.open("https://pinterest-clone-one-mocha.vercel.app/logout","_self")
     }
 
     useEffect(() => {

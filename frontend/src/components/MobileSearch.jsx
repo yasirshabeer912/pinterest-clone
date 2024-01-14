@@ -13,7 +13,7 @@ const MobileSearch = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post(`http://localhost:5000/api/search?q=${searchTerm}`, {
+            const response = await axios.post(`https://pinterest-clone-one-mocha.vercel.app/api/search?q=${searchTerm}`, {
                 headers: {
                     'Accept': 'application/json',
                 },

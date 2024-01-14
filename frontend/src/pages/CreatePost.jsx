@@ -79,7 +79,7 @@ const CreatePost = () => {
       }
       console.log(formData);
 
-      const response = await fetch("http://localhost:5000/api/createPost", {
+      const response = await fetch("https://pinterest-clone-one-mocha.vercel.app/api/createPost", {
         method: "POST",
         headers: {
           Authorization: token,

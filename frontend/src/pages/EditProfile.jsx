@@ -71,7 +71,7 @@ const EditProfile = () => {
                 name,email,password,image
             };
 
-            const response = await axios.put(`http://localhost:5000/api/users/updateUser/${user._id}`, JSON.stringify(formData), {
+            const response = await axios.put(`https://pinterest-clone-one-mocha.vercel.app/api/users/updateUser/${user._id}`, JSON.stringify(formData), {
                 headers: {
                     "Content-Type": "application/json",
                 },

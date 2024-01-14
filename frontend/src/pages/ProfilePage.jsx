@@ -32,7 +32,7 @@ const ProfilePage = () => {
       const config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: `http://localhost:5000/api/getPostsByUser/${user._id}`, // Updated URL
+        url: `https://pinterest-clone-one-mocha.vercel.app/api/getPostsByUser/${user._id}`, // Updated URL
         headers: {
           'Authorization': token,
         },
@@ -52,7 +52,7 @@ const ProfilePage = () => {
       const config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: `http://localhost:5000/api/getSavedPosts/${user._id}`, // Updated URL
+        url: `https://pinterest-clone-one-mocha.vercel.app/api/getSavedPosts/${user._id}`, // Updated URL
         headers: {
           'Authorization': token,
         },
