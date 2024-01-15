@@ -20,6 +20,7 @@ const Signup = ({showW,setShowW}) => {
     setLoading(true)
     try {
       const apiUrl = "https://pinterest-clone-one-mocha.vercel.app/api/users/";
+      // const apiUrl = "http://localhost:5000/api/users/";
       // eslint-disable-next-line no-unused-vars
       const { data } = await axios.post(apiUrl, {
         name,

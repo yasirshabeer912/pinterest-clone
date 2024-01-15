@@ -22,10 +22,10 @@ const App = () => {
       <Router>
       <Header />
         <Routes>
+          <Route path="/create" element={<CreatePost />} />
           <Route path="/" element={token || email  ? <Posts/> : <Home/>} />
           {/* <Route path="/" element={<Posts />} /> */}
           <Route path="/pin/:id" element={<SinglePost />} />
-          <Route path="/create" element={<CreatePost />} />
           <Route path="/:name" element={<ProfilePage />} />
           <Route path="/:name/created" element={<Created />} />
           <Route path="/search" element={<SearchedPosts />} />

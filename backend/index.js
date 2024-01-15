@@ -25,7 +25,7 @@ app.use(
 
 app.use(
     cors({
-        origin: "https://pinterest-clone-yasir.vercel.app", // Replace with your client's origin
+        origin: "https://profound-trifle-a7d6a6.netlify.app", // Replace with your client's origin
         credentials: true,
     })
 );
